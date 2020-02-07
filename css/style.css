@@ -1,0 +1,260 @@
+html{height: 100%;}
+
+.topNav{width: 100%; height: 40px; background-color: #0044af;}
+
+.leftNav{width: 1200px; 
+	min-width : 1200px;
+	margin:0 auto;}
+
+.leftNav ul {float: left;}
+.leftNav ul li{float: left; width: 120px; height: 40px;line-height:40px; background-color: #00163b; margin-right: 5px; color:#fff; text-align:center; cursor:pointer; transition: 0.2s;}
+.leftNav ul li:hover{background-color: #fff; color:#000;}
+
+.rightNav {width: 1200px; 
+	min-width : 1200px;
+	 margin:0 auto;}
+.rightNav ul li {cursor:pointer; float:right; line-height: 40px; text-align: center; color:#fff; font-size:14px; margin-left: 15px;}
+.plus{font-size:16px; width: 18px; height: 18px;line-height: 16px; background-color: #fff; color:#585858;margin-top: 12px; text-align:center; cursor: pointer; }
+.minus{font-size:22px; width: 18px; height: 18px;line-height: 16px; background-color: #fff; color:#585858;margin-top: 12px; text-align:center; margin-right: -10px; cursor: pointer;}
+.plus:hover{background-color: #585858; color: #fff;}
+.minus:hover{background-color: #585858; color: #fff;}
+
+.topMenu{width: 100%; height: 120px; background-color: #fff;}
+.topMenuBox{width: 1200px; min-width:1200px; margin:0 auto;}
+.rightMenu{width: 100%; max-width:1200px; margin: 0 auto; }
+.rightMenu ul li{float: right; line-height: 120px; margin-left: 35px;}
+.rightMenu ul li img{padding-top:35px; cursor: pointer;}
+.rightMenu ul li:first-child{margin-left:0px;}
+.rightMenu ul li a{color:#585858; font-size:20px; font-weight:bold; box-sizing: border-box; transition:0.3s;}
+.rightMenu ul li a:hover{border-bottom:3px solid #585858;}
+
+.Logo{float: left; cursor: pointer;}
+.Logo h1{padding-top: 15px;}
+
+/*header 끝 */
+
+
+.mainBox{width: 100vw; height: 100%; background-image:url(../images/back_img.jpg); background-repeat: no-repeat; background-size: cover;}
+
+.middleNav{width: 1200px; min-width:1200px; margin: 0 auto; position:relative;}
+.middleText{color: #fff; letter-spacing: -2px;  display: inline-block; position: absolute; top: 80px; left: 0;}
+.middleText p{font-size: 40px;}
+.middleText h2{font-size: 60px;}
+
+.middleIcon{position:absolute; top: 80px; right: 0px;}
+.middleIcon ul li{float: right;}
+.circle{margin-right: 15px;font-size: 14px; color:#fff; border-radius: 50%; width: 90px; height: 90px; border: 2px solid #fff; text-align: center; cursor: pointer;}
+.circle:hover{background-color: #00163b; transition: 0.2s; font-weight: bold;}
+.circle img{width:60%; padding-top: 18px;}
+.circle p{padding-top: 23px; cursor: pointer;}
+
+/*가운데 네비게이션 끝 */
+
+
+
+.articleCard{width: 1200px; height: 900px; min-width: 1200px; margin:0 auto; padding-top: 240px;}
+.articleCard > ul > li{float: left;}
+.articleCard > ul > li:first-child {width: 75%; height: 450px;}
+.articleCard > ul > li:nth-child(2) {width: 25%; height: 450px;}
+.articleCard > ul > li:nth-child(3) {width: 25%; height: 225px; background-color: #00163b;}
+.articleCard > ul > li:nth-child(4) {width: 25%; height: 225px; background-color: #1651b7;}
+.articleCard > ul > li:nth-child(5) {width: 25%; height: 225px; background-color: #fff;}
+.articleCard > ul > li:nth-child(6) {width: 25%; height: 225px; }
+.articleCard > ul > li:nth-child(7) {width: 25%; height: 225px; }
+.articleCard > ul > li:nth-child(8) {width: 75%; height: 225px; }
+.articleCard h3{font-size: 24px; cursor: pointer;}
+.bxSliderWrap{position:relative;}
+.nextBtn{position: absolute; top: 200px; right: 0;cursor: pointer;}
+.prevBtn{position: absolute; top: 200px;left: 0;cursor: pointer;}
+
+.SliderText{position: absolute; top: 80px; left: 60px;}
+.SliderText p{color: #1650b5; font-size:60px; letter-spacing: -3px; }
+.SliderText p span{font-weight:bold;}
+
+.sliderMoreBox{transition:0.3s; box-sizing:border-box; border: 3px solid #000; cursor:pointer; width: 180px; height: 40px;  background-color: #192d4e; position: absolute; top: 330px; left: 60px;}
+.sliderMoreBox:hover {background-color: #000;}
+.sliderMoreBox p{ font-size: 16px; line-height:34px; text-align:center; color:#fff;  font-weight:#fff;}
+
+/*메인슬라이드 끝 */
+
+
+.app{width: 100%; height: 100%; position: relative;}
+.appText {position: absolute; top: 70px; left:37px; color:#fff; font-size:35px;}
+.appText p span {font-weight:bold;}
+.appText2{position: absolute; top: 225px; left: 37px; font-size:17px; color: #fff;}
+
+.appMoreBox{cursor:pointer; transition:0.3s; position: absolute; top: 330px; left: 37px; width: 180px; height: 40px; background-color:rgba(0,0,0,0.4); border: 1px solid #fff; }
+.appMoreBox:hover{background-color: rgba(0,0,0,1);}
+.appMoreBox p{text-align:center; line-height:40px; color:#fff;}
+
+/*APP 도서관 끝 */
+
+
+.hotLink {text-align: center; position: relative;}
+.hotLink ul {display: inline-block;}
+.hotLink h3{position: absolute; top: 20px;left: 20px; color:#fff;}
+.hotLink ul li img{transition:0.2s; width: 40px; height: 40px; padding-top: 10px; margin-bottom: 15px;}
+.iconBox{padding-top: 80px;}
+
+.circle2{margin:0 10px;float:left; background-color: #fff; border-radius: 50%; width: 60px; height: 60px; border: 2px solid #fff; text-align: center; cursor: pointer; }
+.circle2:hover img{transform: scale(1.1); font-weight: bold;}
+.circle2:hover p{font-weight: bold;}
+.circle2 p{display: block; font-size:13px; color: #fff;}
+
+/*핫링크 끝*/
+
+
+.notice h3:after{content:"";display: block; width: 257px; height: 2px; background-color: #fff;
+position: absolute; top: 50px;}
+.notice{text-align: center; position: relative; width: 100%; height: 100%;}
+.leftNotice{position: absolute; top: 85px;left: 30px; }
+.rightNotice{position:absolute; top: 85px; right: 10px; }
+.leftNotice ul li{box-sizing:border-box; cursor:pointer; text-align:left; padding: 5px 0;   font-size: 14px; list-style-type: square;color:#fff;}
+.leftNotice ul li:hover {border-bottom: 1px solid #fff;}
+.rightNotice ul li{ cursor:pointer; text-align:right; font-size: 14px; padding: 5px 0;  color:#fff;}
+.notice h3{position: absolute; top: 20px;left: 20px; color:#fff;}
+/*공지사항 끝*/
+
+.snsNews{position: relative;}
+.snsNews h3{position: absolute; top: 20px; left: 20px; color:#000;}
+
+.snsNews ul{position: absolute; top: 170px; right: 20px;}
+.snsNews ul li{float: left; margin-left:4px; cursor: pointer; transition:0.2s;}
+.snsNews ul li:hover{transform: translate(0, -15%);}
+.snsNews ul li img{width: 30px;}
+
+.snsImg{position: absolute; top: 70px; left: 20px; overflow:hidden;}
+.snsImg img{transition:0.2s; cursor:pointer;}
+.snsImg:hover img{transform: scale(1.1);}
+.newsText{position: absolute; top: 70px; right: 20px;}
+.newsText p{font-size: 14px; color: #585858; padding:1px 0;}
+/*snsnews 끝*/
+
+.campus{width: 100%; height: 100%; overflow: hidden; position: relative;}
+.hoverBox{transition:0.3s; text-align:center; width: 100%; height:100%; position: absolute; top: 180px; background-color:rgba(0,0,0,0.7);}
+.hoverBox:hover{top: 0;}
+.hoverText p{color:#fff; font-size:20px; padding-top: 10px;}
+.moreBox{color:#fff; font-size:20px; transition:0.3s; cursor:pointer; display:inline-block; width: 150px; height: 40px; line-height:40px; border:2px solid #fff; margin-top:60px;}
+.moreBox:hover{background-color: #fff; color:#000;}
+/*캠퍼스 갤러리 끝 */
+
+.media{cursor:pointer; position:relative;}
+.mediaHoverBox{width: 100%; height: 100%; background-color: rgba(0,0,0,0.3); position:absolute; top: 0; display: none;}
+.playBtn{position:absolute; line-height:65px; color:#fff; top: 50%; left: 50%;width: 70px;height: 70px; border-radius:50%; background-color: rgba(0,0,0,0.7); font-size:40px; text-align:center; transform: translate(-50%, -50%)}
+.media:hover .mediaHoverBox{display: block;}
+/*학교 미디어 끝 */
+
+
+.bxsliderWrap2{position: relative; width: 100%; height: 100%; overflow: hidden;}
+.bxsliderWrap2:hover .bookBoy img{transform: scale(1.1);}
+/*.bxsliderWrap2:hover .bookBackground img{transform: scale(1.1);}*/
+
+.bookBackground img{/*transition: all 3s;*/height:100%; }
+.bookBoy img{transition: 1s; }
+.bookBoy{position:absolute; top: -15px; right: 100px; }
+
+.newStudentText {position: absolute; top: 25px; left: 35px; font-size:33px; color: #f13f33;}
+.newStudentDayText {position: absolute; top: 60px; left: 35px; font-size:50px; font-weight:bold; color: #f13f33;}
+.newStudentClickBox {position:absolute; top: 150px; line-height: 40px;  left: 35px; color:#fff; text-align:center; background-color: #f13f33; width: 180px; height: 40px;
+transition: 0.3s;
+    cursor: pointer;
+    width: 180px; }
+.newStudentClickBox:hover{background-color:#990b0b;}
+
+
+
+.articleCard2{width: 1200px;
+	height: 60px;	
+	 margin:0 auto;
+	 background-color: #fff;
+	 margin-top: 20px;
+     min-width:1200px;
+	}
+/*마지막 슬라이드 신입생 모집 끝 */
+
+
+.articleCard2 ul li{float: left;}
+.articleCard2 > ul > li:first-child{width: 25%; height: 60px; background-color: #fff; border-right: 1px solid black; box-sizing: border-box;}
+.articleCard2 > ul > li:last-child{width: 75%; height: 60px; background-color: #fff;}
+
+
+.bxsliderWrap3 {margin-left: 140px;position: relative; width: 120px; text-align: center; height: 60px; background-color: #fff;}
+
+.bxslider3 li{font-size: 20px; line-height: 60px; font-weight: bold; color:#585858;}
+.dayNextBtn{position: absolute;  top: 20px; left: 110px; cursor: pointer;}
+.dayPrevBtn{position: absolute;  top: 20px; left: 0px; cursor: pointer;}
+.dayNextBtn img,.dayPrevBtn img{width: 10px;}
+.dayText{float: left; font-size:20px; font-weight:bold; line-height: 60px; padding-left: 30px; color: #00163b;}
+
+/*학사일정 데이리스트 끝 */
+
+.bxsliderWrap4{position: relative;}
+.article2_textBox{display: flex;}
+.article2_leftText {line-height: 60px; padding:0 40px; font-weight:bold; color: #585858;}
+.article2_rightText{line-height:60px; color: #585858; font-size:13.5px;}
+
+.upDownBtnBox{cursor:pointer; text-align: right; position: absolute; top: 0; right: 0;}
+
+/*상담일정 끝*/
+
+ 
+footer{width: 100vw; height:170px; background-color: #fff; margin-top: 70px; }
+.footerBox{position:relative;
+    width: 1200px;
+	min-width : 1200px;
+	height: 170px;
+	 margin:0 auto;}
+
+ .footernav{position: absolute; top: 25px; right: 110px;}
+.footernav ul li {cursor:pointer; float: left; padding:0 17px; font-size:15px;text-align: center;  position: relative;}
+.footernav ul li:before{content:""; display: block; width: 1.4px; height: 12px; background-color: #000; position: absolute; top: 5px; left: 0px;}
+.footernav ul li:first-child:before {display:none; }
+
+.footerText{position: absolute; top:57px; right: 300px;}
+ .footerText p{margin:5px 0px; font-size:13.5px; color: #585858;}
+
+.footerLogo {position:absolute; top: 20px; left: 40px;}
+ .footerLogo img{width: 200px;}
+
+/*footer 끝 */
+
+
+
+.bxsliderWrap2 .bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto {
+	 position: absolute;
+	 top: 10px;
+	 right: 30px;
+	 width: 120px;
+}
+.bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a:hover, .bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a.active, .bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a:focus {
+    background: #f9411d;}
+
+/*박스 슬라이더 */
+.bx-wrapper {
+	display: inline-block;
+    -moz-box-shadow: 0 none; 
+    -webkit-box-shadow: 0 none;
+    box-shadow: none;
+        margin-bottom: 0;
+    border:0 none;}
+
+.bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;}
+
+.bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default-pager a:focus {
+    background: #284ce4;}
+
+.bx-wrapper .bx-pager.bx-default-pager a {
+    background: #fff;
+    text-indent: -9999px;
+    display: block;
+    width: 15px;
+    height: 15px;
+    margin: 0 7px;
+    outline: 0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 50%;}
+
