@@ -446,7 +446,6 @@
 				mode:'horizontal',
 				speed:1000,
 				controls:false
-
 			});
 
 			$(".nextBtn").click(function(){
@@ -498,8 +497,19 @@
 				iframe:true,
 				innerWidth:1000,
 				innerHeight:600
-		})
-	});
+			})
+			$(window).resize(function(){
+	            var oWidth = $("body").width();
+	            if(oWidth > 900){
+	               mySlide4.reloadSlider();
+	            }
+     	    })	
+
+		});
+
+
+
+
 	</script>
 
 

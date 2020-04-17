@@ -1,56 +1,41 @@
 html{height: 100%;}
-
 .topNav{width: 100%; height: 40px; background-color: #0044af; position: relative;}
-
-.leftNav{width: 1200px; 
-	margin:0 auto;}
-
+.leftNav{width: 1200px; margin:0 auto;}
 .leftNav ul {float: left;}
 .leftNav ul li{float: left; width: 120px; height: 40px;line-height:40px; background-color: #00163b; margin-right: 5px; color:#fff; text-align:center; cursor:pointer; transition: 0.2s;}
 .leftNav ul li:hover{background-color: #fff; color:#000;}
-
 .rightNav ul{position: absolute; top: 2px; right: 20px;}
 .rightNav ul li {cursor:pointer; float:right; line-height: 40px; text-align: center; color:#fff; font-size:14px; margin-left: 15px;}
 .plus{font-size:16px; width: 18px; height: 18px;line-height: 16px; background-color: #fff; color:#585858;margin-top: 12px; text-align:center; cursor: pointer; }
 .minus{font-size:22px; width: 18px; height: 18px;line-height: 16px; background-color: #fff; color:#585858;margin-top: 12px; text-align:center; margin-right: -10px; cursor: pointer;}
 .plus:hover{background-color: #585858; color: #fff;}
 .minus:hover{background-color: #585858; color: #fff;}
-
 .topMenu{width: 100%; height: 120px; background-color: #fff;}
-.topMenuBox{}
 .rightMenu{width: 100%; margin: 0 auto; }
 .rightMenu ul li{float: right; line-height: 120px; margin-left: 35px;}
 .rightMenu ul li img{padding-top:35px; cursor: pointer;}
 .rightMenu ul li:first-child{margin-left:0px;}
 .rightMenu ul li a{color:#585858; font-size:20px; font-weight:bold; box-sizing: border-box; transition:0.3s;}
 .rightMenu ul li a:hover{border-bottom:3px solid #585858;}
-
 .Logo{float: left; cursor: pointer; width: 150px; height: 100px;}
 .Logo a{display: block;}
 .Logo img{padding-top: 15px;}
-
 /*header 끝 */
 
-
 .mainBox{width: 100vw; height: 100%; padding-bottom: 20px; background-image:url(../images/back_img.jpg); background-repeat: no-repeat; background-size: cover;}
-
 .middleNav{width: 1200px; margin: 0 auto; position:relative;}
 .middleText{color: #fff; letter-spacing: -2px;  display: inline-block; position: absolute; top: 80px; left: 0;}
 .middleText p{font-size: 40px;}
 .middleText h2{font-size: 60px;}
-
 .middleIcon{position:absolute; top: 80px; right: 0px;}
 .middleIcon ul li{float: right;}
 .circle{margin-right: 15px;font-size: 14px; color:#fff; border-radius: 50%; width: 90px; height: 90px; border: 2px solid #fff; text-align: center; cursor: pointer;}
 .circle:hover{background-color: #00163b; transition: 0.2s; font-weight: bold;}
 .circle img{width:60%; padding-top: 18px;}
 .circle p{padding-top: 23px; cursor: pointer;}
-
 /*가운데 네비게이션 끝 */
 
-
-
-.articleCard{width: 1200px; height: 900px; margin:0 auto; padding-top: 240px;}
+.articleCard{width: 1200px; margin:0 auto; padding-top: 240px;}
 .articleCard > ul > li{float: left;}
 .articleCard > ul > li:first-child {width: 75%; height: 450px;}
 .articleCard > ul > li:nth-child(2) {width: 25%; height: 450px;}
@@ -64,43 +49,33 @@ html{height: 100%;}
 .bxSliderWrap{position:relative;}
 .nextBtn{position: absolute; top: 200px; right: 0;cursor: pointer;}
 .prevBtn{position: absolute; top: 200px;left: 0;cursor: pointer;}
-
 .SliderText{position: absolute; top: 80px; left: 60px;}
 .SliderText p{color: #1650b5; font-size:60px; letter-spacing: -3px; }
 .SliderText p span{font-weight:bold;}
-
 .sliderMoreBox{transition:0.3s; box-sizing:border-box; border: 3px solid #000; cursor:pointer; width: 180px; height: 40px;  background-color: #192d4e; position: absolute; top: 330px; left: 60px;}
 .sliderMoreBox:hover {background-color: #000;}
 .sliderMoreBox p{ font-size: 16px; line-height:34px; text-align:center; color:#fff;  font-weight:#fff;}
-
 /*메인슬라이드 끝 */
-
 
 .app{width: 100%; height: 100%; position: relative;}
 .appText {position: absolute; top: 70px; left:37px; color:#fff; font-size:35px;}
 .appText p span {font-weight:bold;}
 .appText2{position: absolute; top: 225px; left: 37px; font-size:17px; color: #fff;}
-
 .appMoreBox{cursor:pointer; transition:0.3s; position: absolute; top: 330px; left: 37px; width: 180px; height: 40px; background-color:rgba(0,0,0,0.4); border: 1px solid #fff; }
 .appMoreBox:hover{background-color: rgba(0,0,0,1);}
 .appMoreBox p{text-align:center; line-height:40px; color:#fff;}
-
 /*APP 도서관 끝 */
-
 
 .hotLink {text-align: center; position: relative;}
 .hotLink ul {display: inline-block;}
 .hotLink h3{position: absolute; top: 20px;left: 20px; color:#fff;}
 .hotLink ul li img{transition:0.2s; width: 40px; height: 40px; padding-top: 10px; margin-bottom: 15px;}
 .iconBox{padding-top: 80px;}
-
 .circle2{margin:0 10px;float:left; background-color: #fff; border-radius: 50%; width: 60px; height: 60px; border: 2px solid #fff; text-align: center; cursor: pointer; }
 .circle2:hover img{transform: scale(1.1); font-weight: bold;}
 .circle2:hover p{font-weight: bold;}
 .circle2 p{display: block; font-size:13px; color: #fff;}
-
 /*핫링크 끝*/
-
 
 .notice h3:after{content:"";display: block; width: 257px; height: 2px; background-color: #fff;
 position: absolute; top: 50px;}
@@ -142,112 +117,54 @@ position: absolute; top: 50px;}
 .media:hover .mediaHoverBox{display: block;}
 /*학교 미디어 끝 */
 
-
 .bxsliderWrap2{position: relative; width: 100%; height: 100%; overflow: hidden;}
 .bxsliderWrap2:hover .bookBoy img{transform: scale(1.1);}
-
 .bookBackground img{height:100%; min-height: 225px; }
 .bookBoy img{transition: 1s; }
 .bookBoy{position:absolute; top: -15px; right: 100px; }
-
 .newStudentText {position: absolute; top: 25px; left: 35px; font-size:33px; color: #f13f33;}
 .newStudentDayText {position: absolute; top: 60px; left: 35px; font-size:50px; font-weight:bold; color: #f13f33;}
-.newStudentClickBox {position:absolute; top: 150px; line-height: 40px;  left: 35px; color:#fff; text-align:center; background-color: #f13f33; width: 180px; height: 40px;
-transition: 0.3s;
-    cursor: pointer;
-    width: 180px; }
+.newStudentClickBox {position:absolute; top: 150px; line-height: 40px;  left: 35px; color:#fff; text-align:center; background-color: #f13f33; width: 180px; height: 40px; transition: 0.3s; cursor: pointer; width: 180px; }
 .newStudentClickBox:hover{background-color:#990b0b;}
 
-
-
-.articleCard2{width: 1200px;
-	 margin:0 auto;
-	 background-color: #fff;
-	 margin-top: 20px;
-	}
+.articleCard2{width: 1200px; margin:0 auto; background-color: #fff; margin-top: 20px;}
 /*마지막 슬라이드 신입생 모집 끝 */
-
 
 .articleCard2 ul li{float: left;}
 .articleCard2 > ul > li:first-child{width: 25%; height: 60px; background-color: #fff; border-right: 1px solid black; box-sizing: border-box;}
 .articleCard2 > ul > li:last-child{width: 75%; height: 60px; background-color: #fff;}
-
-
 .bxsliderWrap3 {margin-left: 140px;position: relative; width: 120px; text-align: center; height: 60px; background-color: #fff;}
-
 .bxslider3 li{font-size: 20px; line-height: 60px; font-weight: bold; color:#585858;}
 .dayNextBtn{position: absolute;  top: 20px; left: 110px; cursor: pointer;}
 .dayPrevBtn{position: absolute;  top: 20px; left: 0px; cursor: pointer;}
 .dayNextBtn img,.dayPrevBtn img{width: 10px;}
 .dayText{float: left; font-size:20px; font-weight:bold; line-height: 60px; padding-left: 30px; color: #00163b;}
-
 /*학사일정 데이리스트 끝 */
 
 .bxsliderWrap4{position: relative;}
 .article2_textBox{display: flex;}
 .article2_leftText {line-height: 60px; padding:0 40px; font-weight:bold; color: #585858;}
 .article2_rightText{line-height:60px; color: #585858; font-size:13.5px;}
-
 .upDownBtnBox{cursor:pointer; text-align: right; position: absolute; top: 0; right: 0;}
-
 /*상담일정 끝*/
 
- 
 footer{width: 100vw;  background-color: #333333; padding-top: 20px;}
-.footerBox{
-    width: 1200px;
-	 margin:0 auto;}
-
-
+.footerBox{width: 1200px; margin:0 auto;}
 .footernav ul li {cursor:pointer; float: left; padding:0 17px; font-size:15px;text-align: center;  position: relative; color: #fff;}
 .footernav ul li:before{content:""; display: block; width: 1.4px; height: 12px; background-color: #eee; position: absolute; top: 5px; left: 0px;}
 .footernav ul li:first-child:before {display:none; }
-
 .footerText{padding:20px 0;}
- .footerText p{margin:5px 15px; font-size:13.5px; color: #eee;}
-
+.footerText p{margin:5px 15px; font-size:13.5px; color: #eee;}
 /*footer 끝 */
 
-
-
-.bxsliderWrap2 .bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto {
-	 position: absolute;
-	 top: 10px;
-	 right: 30px;
-	 width: 120px;
-}
-.bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a:hover, .bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a.active, .bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a:focus {
-    background: #f9411d;}
-
+.bxsliderWrap2 .bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto { position: absolute; top: 10px; right: 30px; width: 120px;}
+.bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a:hover, .bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a.active, .bxsliderWrap2 .bx-wrapper .bx-pager.bx-default-pager a:focus {background: #f9411d;}
 /*박스 슬라이더 */
-.bx-wrapper {
-	display: inline-block;
-    -moz-box-shadow: 0 none; 
-    -webkit-box-shadow: 0 none;
-    box-shadow: none;
-        margin-bottom: 0;
-    border:0 none;}
-
-.bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;}
-
-.bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default-pager a:focus {
-    background: #284ce4;}
-
-.bx-wrapper .bx-pager.bx-default-pager a {
-    background: #fff;
-    text-indent: -9999px;
-    display: block;
-    width: 15px;
-    height: 15px;
-    margin: 0 7px;
-    outline: 0;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 50%;}
-
+.bx-wrapper { display: inline-block; -moz-box-shadow: 0 none;  -webkit-box-shadow: 0 none; box-shadow: none; margin-bottom: 0; border:0 none;}
+.bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto { position: absolute; bottom: 30px; width: 100%;}
+.bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default-pager a:focus {background: #284ce4;}
+.bx-wrapper .bx-pager.bx-default-pager a { background: #fff; text-indent: -9999px; display: block; width: 15px; height: 15px; margin: 0 7px; outline: 0; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 50%;}
+#colorbox{top: 50% !important; left: 50% !important; transform: translate(-50%, -50%);}
 
 @media screen and (max-width: 1200px){
     .rightMenu{position: absolute; right: 30px;}
@@ -270,28 +187,24 @@ footer{width: 100vw;  background-color: #333333; padding-top: 20px;}
     .d-lg-none{display: none;}
     .snsImg img{width: 200px;}
     .app img{width: 100%; height: 100%;}
-
     .hotLink{height: 100%;}
     .hotLink ul{height: 100%;}
     .hotLink ul li{height: 100%;}
     .footerBox{width: 100%;}
-
     .articleCard2{width: 100%;}
     .articleCard2 ul{width: 100%;}
     .articleCard2 ul li:nth-child(1){width: 100%;}
     .articleCard2 ul li:nth-child(2){width: 100%;}
 }
 
-
 @media screen and (max-width: 960px){
     .rightNav{display: none; }
     .d-none{display: none;}
      .articleCard > ul > li:first-child {display: none;}
      .snsImg img{width: 100px;}
-
      .footernav{width: 100%}
      .footernav ul{width: 100%;}
-     .footernav ul li{width: 100%; float: left; text-align: left;}
+     .footernav ul li{float: left; text-align: left; margin-top: 10px;}
      .footernav ul li:before{display: none;}
 }
 
@@ -300,14 +213,10 @@ footer{width: 100vw;  background-color: #333333; padding-top: 20px;}
     .middleText h2{font-size: 30px;}
     .middleIcon{left: 0; top: 200px;}
     .bxSliderWrap{display: none;}
-
-
-
 }
 
-
-
 @media screen and (max-width: 560px){
+    .footernav ul li {float: none;}
     .appText{font-size: 25px;}
     .appText2{font-size: 20px; top: 180px;}
     .rightNotice{right: 30px;}
@@ -328,7 +237,6 @@ footer{width: 100vw;  background-color: #333333; padding-top: 20px;}
     .newStudentText{top: 60px; font-size: 20px; color: #fff; font-weight: bold;}
     .newStudentDayText{top: 85px; font-size: 28px; color: #fff;}
 }
-
 
 @media screen and (max-width: 450px){
  .middleIcon{display: none;}
