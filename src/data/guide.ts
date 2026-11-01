@@ -251,11 +251,20 @@ export const guide: GuideEntry[] = [
   },
   {
     id: "help",
-    keys: ["도움", "뭘", "무엇을", "뭐 물어", "할 수", "기능", "누구", "가상", "실제", "진짜", "help", "what can", "who are you", "real", "fictional", "fake"],
+    keys: ["도움", "뭘", "무엇을", "뭐 물어", "할 수", "기능", "누구", "help", "what can", "who are you"],
     q: { ko: "무엇을 물어볼 수 있어?", en: "What can I ask you?" },
     a: {
-      ko: "입학(정시·편입·설명회), 학사일정과 성적, 장학금, 생활관, 오늘의 학식, 도서관, 교환학생, 오시는 길을 물어보세요. 참고로 한국대학교는 포트폴리오용으로 만든 가상의 대학이라, 일정과 숫자도 모두 가상이에요.",
-      en: "Ask me about admissions (regular, transfer, info sessions), the calendar and grades, scholarships, housing, today's menu, the library, exchange or directions. Note that Hanguk University is a fictional school made for a portfolio, so its dates and numbers are fictional too.",
+      ko: "입학(정시·편입·설명회), 학사일정과 성적, 장학금, 생활관, 오늘의 학식, 도서관, 교환학생, 오시는 길을 물어보세요. 메뉴에 없는 것도 편하게 물어보셔도 돼요.",
+      en: "Ask me about admissions (regular, transfer, info sessions), the calendar and grades, scholarships, housing, today's menu, the library, exchange or directions — or anything else about campus.",
+    },
+  },
+  {
+    id: "fictional",
+    keys: ["가상", "실제", "진짜", "실존", "real", "fictional", "fake"],
+    q: { ko: "실제 있는 대학이야?", en: "Is this a real university?" },
+    a: {
+      ko: "한국대학교는 가상의 대학이에요. 사진 · 영상 · 음악은 AI로 만들었고, 일정과 수치도 실제와는 관계없어요.",
+      en: "Hanguk University is fictional. Its photos, video and music were made with AI, and its dates and figures aren't real.",
     },
   },
   {

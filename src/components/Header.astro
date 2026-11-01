@@ -107,8 +107,7 @@ const other = withBase(lang === "ko" ? "/en/" : "/");
 
   /* ── utility bar ── */
   .util {
-    background: rgba(5, 15, 38, 0.55);
-    backdrop-filter: blur(10px);
+    background: rgba(5, 15, 38, 0.62);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     font-size: 0.8125rem;
   }
@@ -310,8 +309,7 @@ const other = withBase(lang === "ko" ? "/en/" : "/");
     left: 0;
     right: 0;
     color: var(--navy-900);
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: saturate(1.4) blur(14px);
+    background: rgba(255, 255, 255, 0.97);
     box-shadow: 0 1px 0 var(--line), 0 10px 30px -18px rgba(5, 15, 38, 0.35);
     animation: bar-in 0.45s var(--ease);
   }
@@ -339,6 +337,7 @@ const other = withBase(lang === "ko" ? "/en/" : "/");
     }
     .bar__in {
       height: 64px;
+      gap: 12px;
     }
   }
   @media (min-width: 1081px) {

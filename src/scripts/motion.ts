@@ -35,8 +35,16 @@ export function initMotion() {
     el.focus({ preventScroll: true });
   });
 
-  // Freeze the page behind modal dialogs.
-  new MutationObserver(() => (root.classList.contains("dialog-open") ? lenis.stop() : lenis.start())).observe(root, { attributes: true, attributeFilter: ["class"] });
+  // Freeze the page behind modal dialogs. Lenis and the header toggle classes on <html> all
+  // the time while scrolling, so act only when the dialog state itself flips.
+  let frozen = false;
+  new MutationObserver(() => {
+    const open = root.classList.contains("dialog-open");
+    if (open === frozen) return;
+    frozen = open;
+    if (open) lenis.stop();
+    else lenis.start();
+  }).observe(root, { attributes: true, attributeFilter: ["class"] });
 
   // Reveals
   ScrollTrigger.batch(".reveal", {
@@ -63,11 +71,10 @@ export function initMotion() {
     });
   }
 
-  // Parallax on the photo bands.
+  // Gentle parallax on the hero only — a cheap translate. (Scaling the four stacked 2K season
+  // photos every frame was the most expensive thing on the page, so that band stays still.)
   const heroMedia = $(".hero__media");
-  if (heroMedia) gsap.to(heroMedia, { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  const stage = $(".seasons__stage");
-  if (stage) gsap.fromTo(stage, { scale: 1.1 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".seasons", start: "top bottom", end: "bottom top", scrub: true } });
+  if (heroMedia) gsap.to(heroMedia, { yPercent: 14, ease: "none", force3D: true, scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
   // Re-measure after fonts settle and when the 글자크기 changes the layout.
   document.fonts?.ready.then(() => ScrollTrigger.refresh());

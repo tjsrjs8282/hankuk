@@ -98,7 +98,7 @@ const kinds = Object.keys(calendarKinds) as (keyof typeof calendarKinds)[];
           <span class="cal__today-dot"></span>{t(ui.today, lang)} <span class="tabular" data-cal-today>{today.replaceAll("-", ".")}</span>
         </p>
       </div>
-      <ol class="cal__events" data-cal-events data-lenis-prevent>
+      <ol class="cal__events" data-cal-events>
         {
           list.map((e) => (
             <li class:list={["cal__event", `k-${e.kind}`, { past: (e.end ?? e.start) < today, now: e.start <= today && (e.end ?? e.start) >= today }]}>
@@ -324,9 +324,6 @@ const kinds = Object.keys(calendarKinds) as (keyof typeof calendarKinds)[];
   }
   .cal__events {
     padding: 10px 8px;
-    max-height: 470px;
-    overflow: auto;
-    overscroll-behavior: contain;
   }
   .cal__events :global(.cal__event) {
     display: grid;
@@ -386,9 +383,6 @@ const kinds = Object.keys(calendarKinds) as (keyof typeof calendarKinds)[];
     .cal {
       grid-template-columns: minmax(0, 1fr);
     }
-    .cal__events {
-      max-height: none;
-    }
   }
   @media (max-width: 560px) {
     .ticker {
@@ -417,7 +411,12 @@ const kinds = Object.keys(calendarKinds) as (keyof typeof calendarKinds)[];
     }
     .ticker__btns {
       flex-direction: row;
+      gap: 4px;
       margin-left: auto;
+    }
+    .ticker__btns button {
+      width: 40px;
+      height: 36px;
     }
     .cal__month {
       padding: 18px 14px;

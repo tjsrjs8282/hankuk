@@ -4,7 +4,7 @@ import type { L } from "../i18n";
  * Everything the homepage says, in Korean and English. The 2020 original's copy is
  * kept where it still works (tagline, slider line, library app, hot links, notices,
  * 성적 열람 문구) and its dates are brought forward to the 2026-27 academic year.
- * 한국대학교 is fictional — a portfolio piece — and the footer says so.
+ * 한국대학교 is fictional; a one-line note in the footer says so (no story about the site itself).
  */
 
 /** A link that either scrolls to a section or asks the AI 도우미 a question. */

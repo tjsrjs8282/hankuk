@@ -68,9 +68,10 @@ const monday = menu[0];
   }
   .hot__head {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 10px 12px;
   }
   .hot__title {
     font-size: 1.5rem;
@@ -86,6 +87,7 @@ const monday = menu[0];
     display: grid;
     justify-items: center;
     gap: 4px;
+    min-width: 48px;
   }
   .hot__icon {
     display: grid;
@@ -121,6 +123,7 @@ const monday = menu[0];
   }
   .dining__top {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
@@ -141,7 +144,8 @@ const monday = menu[0];
     background: rgba(0, 0, 0, 0.25);
   }
   .seg button {
-    padding: 4px 10px;
+    min-height: 30px;
+    padding: 4px 12px;
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 700;

@@ -108,7 +108,6 @@ const start = 2; // autumn — it's November
   .seasons__img {
     object-fit: cover;
     object-position: 70% 40%;
-    will-change: opacity;
   }
   .seasons__shade {
     background:
@@ -152,9 +151,8 @@ const start = 2; // autumn — it's November
     gap: 16px;
     padding: 18px 20px;
     border-radius: var(--radius-l);
-    background: rgba(5, 15, 38, 0.5);
+    background: rgba(5, 15, 38, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(14px);
   }
   .seasons__track {
     flex: 1;
@@ -252,6 +250,26 @@ const start = 2; // autumn — it's November
     .seasons__in {
       grid-template-columns: minmax(0, 1fr);
       padding-bottom: 96px;
+    }
+  }
+  @media (max-width: 420px) {
+    .seasons__control {
+      gap: 10px;
+      padding: 14px;
+    }
+    .seasons__play {
+      width: 42px;
+      height: 42px;
+    }
+    .seasons__tick {
+      font-size: 0.8125rem;
+      padding: 6px 4px;
+    }
+    .seasons__tick:first-child {
+      margin-left: -4px;
+    }
+    .seasons__tick:last-child {
+      margin-right: -4px;
     }
   }
 </style>

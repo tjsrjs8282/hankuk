@@ -72,6 +72,7 @@ const fmt = (iso: string) => iso.slice(5).replace("-", ".");
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
   }
   .notice__title {
     font-size: 1.375rem;
@@ -90,14 +91,22 @@ const fmt = (iso: string) => iso.slice(5).replace("-", ".");
   }
   .tabs {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     margin: 14px 0 6px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+    /* never wider than the tile, whatever the language */
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
   }
   .tabs__tab {
     position: relative;
-    padding: 8px 8px 10px;
-    font-size: 0.875rem;
+    flex: none;
+    white-space: nowrap;
+    padding: 8px 7px 10px;
+    font-size: 0.8125rem;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.86);
     transition: color 0.2s;

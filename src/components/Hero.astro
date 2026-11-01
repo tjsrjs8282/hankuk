@@ -227,16 +227,15 @@ const [line1, line2] = t(brand.headline, lang).split("\n");
     gap: 10px;
     padding: 16px 6px 14px;
     border-radius: var(--radius);
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    background: rgba(5, 15, 38, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     transition:
       background-color 0.3s var(--ease),
       transform 0.3s var(--ease),
       border-color 0.3s;
   }
   .quick__btn:hover {
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(5, 15, 38, 0.62);
     border-color: rgba(255, 255, 255, 0.45);
     transform: translateY(-3px);
   }
@@ -261,6 +260,8 @@ const [line1, line2] = t(brand.headline, lang).split("\n");
     font-size: 0.875rem;
     font-weight: 700;
     letter-spacing: -0.01em;
+    line-height: 1.25;
+    text-align: center;
   }
 
   .hero__toggle {
@@ -273,9 +274,8 @@ const [line1, line2] = t(brand.headline, lang).split("\n");
     height: 40px;
     border-radius: 50%;
     color: #fff;
-    background: rgba(5, 15, 38, 0.45);
+    background: rgba(5, 15, 38, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(6px);
   }
   .hero__toggle .i-play {
     display: none;
@@ -301,6 +301,28 @@ const [line1, line2] = t(brand.headline, lang).split("\n");
     .hero__toggle {
       bottom: auto;
       top: calc(40px + var(--header-h) + 24px);
+    }
+  }
+  /* Small phones: 2×2, icon beside the label — four long labels never fit in one row. */
+  @media (max-width: 420px) {
+    .quick {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .quick__btn {
+      grid-template-columns: auto minmax(0, 1fr);
+      justify-items: start;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px !important;
+      text-align: left;
+    }
+    .quick__icon {
+      width: 38px !important;
+      height: 38px !important;
+    }
+    .quick__label {
+      font-size: 0.8125rem !important;
+      text-align: left;
     }
   }
   @media (max-width: 640px) {

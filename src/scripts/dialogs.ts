@@ -1,11 +1,8 @@
 import { $, $$, lang, toast } from "./util";
 
-const demoText = {
-  ko: "포트폴리오용으로 만든 가상의 대학교 홈페이지라 실제 계정·페이지는 없어요.",
-  en: "This is a fictional university built as a portfolio piece, so there is no real account or page behind this link.",
-};
+const demoText = { ko: "준비 중인 페이지입니다.", en: "This page is coming soon." };
 
-/** The campus film dialog, backdrop-click closing for every modal, and demo-only links. */
+/** The campus film dialog, backdrop-click closing for every modal, and links to pages that don't exist yet. */
 export function initDialogs() {
   const root = document.documentElement;
   const film = $<HTMLDialogElement>("[data-film]");

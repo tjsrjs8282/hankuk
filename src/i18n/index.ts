@@ -36,10 +36,7 @@ export const ui = {
   videoPlay: { ko: "배경 영상 재생", en: "Play background video" },
   scroll: { ko: "스크롤", en: "Scroll" },
   toTop: { ko: "맨 위로", en: "Back to top" },
-  demo: {
-    ko: "포트폴리오용으로 만든 가상의 대학교 홈페이지라 실제 계정·페이지는 없어요.",
-    en: "This is a fictional university built as a portfolio piece, so there is no real account or page behind this link.",
-  },
+  demo: { ko: "준비 중인 페이지입니다.", en: "This page is coming soon." },
   newBadge: { ko: "새 글", en: "New" },
   today: { ko: "오늘", en: "Today" },
 } satisfies Record<string, L>;
