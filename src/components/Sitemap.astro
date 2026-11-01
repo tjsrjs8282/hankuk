@@ -1,0 +1,222 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import TargetLink from "./TargetLink.astro";
+import FontSize from "./FontSize.astro";
+import { nav, audiences } from "../data/site";
+import { ui, t, type Lang } from "../i18n";
+import { withBase } from "../lib/paths";
+
+/** 사이트맵 / 전체메뉴 — the mobile menu too. Native <dialog>: focus trap and Esc for free. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other = withBase(lang === "ko" ? "/en/" : "/");
+---
+
+<dialog class="sitemap" data-lenis-prevent data-sitemap aria-labelledby="sitemap-title">
+  <div class="sitemap__in">
+    <div class="sitemap__head">
+      <Logo lang={lang} tone="dark" />
+      <h2 id="sitemap-title" class="sr-only">{t(ui.sitemap, lang)}</h2>
+      <button type="button" class="icon-btn sitemap__close" data-close autofocus aria-label={t(ui.close, lang)}>
+        <Icon name="close" />
+      </button>
+    </div>
+
+    <div class="sitemap__util">
+      <ul class="sitemap__aud">
+        {
+          audiences.map((a, i) => (
+            <li>
+              <TargetLink target={a.target} lang={lang} class:list={["sitemap__chip", { on: i === 0 }]}>
+                {t(a.label, lang)}
+              </TargetLink>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="sitemap__tools">
+        <a class="sitemap__chip" href={other} hreflang={lang === "ko" ? "en" : "ko"} lang={lang === "ko" ? "en" : "ko"}>
+          <Icon name="globe" size={15} />{t(ui.langSwitch, lang)}
+        </a>
+        <a class="sitemap__chip" href="#directions"><Icon name="pin" size={15} />{t(ui.directions, lang)}</a>
+        <div class="sitemap__font"><FontSize lang={lang} /></div>
+      </div>
+    </div>
+
+    <nav class="sitemap__grid" aria-label={t(ui.sitemap, lang)}>
+      {
+        nav.map((item) => (
+          <div class="sitemap__col">
+            <a class="sitemap__head-link" href={item.href}>
+              {t(item.label, lang)}
+              <Icon name="arrow-right" size={16} />
+            </a>
+            <ul>
+              {item.children.map((c) => (
+                <li>
+                  <TargetLink target={c.target} lang={lang} class="sitemap__link">
+                    {t(c.label, lang)}
+                  </TargetLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+
+    <button type="button" class="sitemap__ai" data-ask={lang === "ko" ? "무엇을 물어볼 수 있어?" : "What can I ask you?"}>
+      <Icon name="sparkle" />
+      <span>
+        <strong>{lang === "ko" ? "찾는 메뉴가 없나요?" : "Can't find it?"}</strong>
+        {lang === "ko" ? "AI 도우미에게 물어보세요" : "Ask the AI assistant"}
+      </span>
+      <Icon name="arrow-right" class="sitemap__ai-arrow" />
+    </button>
+  </div>
+</dialog>
+
+<style>
+  .sitemap {
+    width: min(1100px, 100vw);
+    max-height: min(92vh, 100dvh);
+    margin: auto;
+    border-radius: var(--radius-l);
+    background: #fff;
+    color: var(--ink-900);
+    box-shadow: var(--shadow-3);
+    overflow: auto;
+  }
+  .sitemap__in {
+    padding: 22px clamp(18px, 3vw, 36px) 30px;
+  }
+  .sitemap__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sitemap__close:hover {
+    background: var(--blue-50);
+  }
+  .sitemap__util {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 0;
+  }
+  .sitemap__aud,
+  .sitemap__tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .sitemap__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--ink-700);
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+  }
+  .sitemap__chip:hover {
+    border-color: var(--navy-900);
+    color: var(--navy-900);
+  }
+  .sitemap__chip.on {
+    background: var(--navy-900);
+    border-color: var(--navy-900);
+    color: #fff;
+  }
+  .sitemap__font {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--navy-900);
+  }
+  .sitemap__font :global(.fontsize) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .sitemap__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+    padding: 8px 0 24px;
+  }
+  .sitemap__head-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+    border-bottom: 2px solid var(--navy-900);
+    font-size: 1.0625rem;
+    font-weight: 800;
+    color: var(--navy-900);
+  }
+  .sitemap__link {
+    display: block;
+    width: 100%;
+    padding: 7px 0;
+    text-align: left;
+    color: var(--ink-700);
+    font-size: 0.9375rem;
+  }
+  .sitemap__link:hover {
+    color: var(--blue-600);
+  }
+  .sitemap__ai {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    background: linear-gradient(120deg, var(--navy-900), var(--blue-700));
+    color: #fff;
+    text-align: left;
+  }
+  .sitemap__ai strong {
+    display: block;
+    font-size: 1rem;
+  }
+  .sitemap__ai > :global(svg:first-child) {
+    color: var(--gold-400);
+    width: 28px;
+    height: 28px;
+  }
+  .sitemap__ai :global(.sitemap__ai-arrow) {
+    margin-left: auto;
+  }
+  @media (max-width: 900px) {
+    .sitemap {
+      width: 100vw;
+      height: 100dvh;
+      max-height: none;
+      border-radius: 0;
+    }
+    .sitemap__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 520px) {
+    .sitemap__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+  }
+</style>

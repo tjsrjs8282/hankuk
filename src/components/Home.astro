@@ -1,0 +1,89 @@
+---
+import { getImage } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Header from "./Header.astro";
+import Hero from "./Hero.astro";
+import Highlights from "./Highlights.astro";
+import Academic from "./Academic.astro";
+import Seasons from "./Seasons.astro";
+import About from "./About.astro";
+import Colleges from "./Colleges.astro";
+import Campus from "./Campus.astro";
+import Footer from "./Footer.astro";
+import Sitemap from "./Sitemap.astro";
+import FilmDialog from "./FilmDialog.astro";
+import Assistant from "./Assistant.astro";
+import heroImg from "../assets/photos/hero.jpg";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const meta = {
+  ko: {
+    title: "한국대학교 — 세계로 향하는 한국대학교",
+    description: "개교 70주년 한국대학교 메인페이지. 2027학년도 신·편입생 모집, 학사일정, 사계절 캠퍼스, AI 도우미까지 — 2020년 jQuery 포트폴리오를 2026년에 다시 지은 가상의 대학 홈페이지입니다.",
+  },
+  en: {
+    title: "Hanguk University — Toward the world",
+    description: "Homepage of the fictional Hanguk University at seventy: 2027 admissions, the academic calendar, four seasons on campus and an AI assistant — a 2020 jQuery portfolio piece rebuilt in 2026.",
+  },
+}[lang];
+
+// Preload the same AVIF set the hero <Picture> renders, so the LCP image starts at once.
+const widths = [640, 960, 1440, 1920, 2688];
+const srcset = (await Promise.all(widths.map((w) => getImage({ src: heroImg, width: w, format: "avif" })))).map((img, i) => `${img.src} ${widths[i]}w`).join(", ");
+---
+
+<Base lang={lang} title={meta.title} description={meta.description} preload={{ srcset, sizes: "100vw", type: "image/avif" }}>
+  <Header lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <Highlights lang={lang} />
+    <Academic lang={lang} />
+    <Seasons lang={lang} />
+    <About lang={lang} />
+    <Colleges lang={lang} />
+    <Campus lang={lang} />
+  </main>
+  <Footer lang={lang} />
+  <Sitemap lang={lang} />
+  <FilmDialog lang={lang} />
+  <Assistant lang={lang} />
+  <button type="button" class="to-top" data-to-top aria-label={lang === "ko" ? "맨 위로" : "Back to top"} hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+  </button>
+</Base>
+
+<script>
+  import "../scripts/app";
+</script>
+
+<style>
+  .to-top {
+    position: fixed;
+    right: clamp(16px, 2.5vw, 28px);
+    bottom: calc(clamp(16px, 2.5vw, 28px) + 68px);
+    z-index: 65;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--navy-900);
+    box-shadow: var(--shadow-2);
+    transition: transform 0.25s var(--ease);
+  }
+  .to-top:hover {
+    transform: translateY(-3px);
+  }
+  /* On phones the AI button owns the corner; the logo and the header take you up. */
+  @media (max-width: 640px) {
+    .to-top {
+      display: none;
+    }
+  }
+</style>

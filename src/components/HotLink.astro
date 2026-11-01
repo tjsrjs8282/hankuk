@@ -1,0 +1,185 @@
+---
+import Icon from "./Icon.astro";
+import { hotLinks, menu, dining } from "../data/site";
+import { t, type Lang } from "../i18n";
+
+/** 2020 HOT LINK (숙박시설 운영 · 편리시설 제공 · 학식최고 쉐프) + today's menu. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const monday = menu[0];
+---
+
+<section class="tile t-hot hot" id="life" aria-labelledby="hot-title">
+  <div class="hot__head">
+    <h2 id="hot-title" class="hot__title serif">Hot Link</h2>
+    <ul class="hot__links">
+      {
+        hotLinks.map((h) => (
+          <li>
+            <button type="button" class="hot__link" data-ask={t(h.ask, lang)} aria-haspopup="dialog">
+              <span class="hot__icon">
+                <Icon name={h.icon as "dorm"} size={22} />
+              </span>
+              <span class="hot__label">{t(h.label, lang)}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="dining" data-dining>
+    <div class="dining__top">
+      <p class="dining__label">
+        {lang === "ko" ? "오늘의 학식" : "Today's menu"}
+        <span class="dining__date tabular" data-dining-date></span>
+      </p>
+      <div class="seg" role="radiogroup" aria-label={lang === "ko" ? "식사 선택" : "Meal"}>
+        <button type="button" role="radio" aria-checked="true" data-meal="lunch">{lang === "ko" ? "중식" : "Lunch"}</button>
+        <button type="button" role="radio" aria-checked="false" data-meal="dinner">{lang === "ko" ? "석식" : "Dinner"}</button>
+      </div>
+    </div>
+    <div class="dining__body" aria-live="polite">
+      <p class="dining__main" data-dining-main>{t(monday.lunch.main, lang)}</p>
+      <p class="dining__sides" data-dining-sides>{t(monday.lunch.sides, lang)}</p>
+    </div>
+    <p class="dining__meta">
+      <Icon name="clock" size={14} />
+      <span class="tabular" data-dining-hours>{dining.hours.lunch}</span>
+      <span aria-hidden="true">·</span>
+      {t(dining.place, lang)}
+      <span aria-hidden="true">·</span>
+      {dining.price}
+    </p>
+    <p class="dining__note"><Icon name="leaf" size={14} />{t(dining.breakfast, lang)}</p>
+  </div>
+</section>
+
+<style>
+  .hot {
+    background: var(--navy-900);
+    color: #fff;
+    padding: 24px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .hot__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .hot__title {
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--gold-400);
+  }
+  .hot__links {
+    display: flex;
+    gap: 6px;
+  }
+  .hot__link {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+  }
+  .hot__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--navy-900);
+    transition:
+      transform 0.3s var(--ease),
+      background-color 0.3s;
+  }
+  .hot__link:hover .hot__icon {
+    transform: translateY(-3px) scale(1.06);
+    background: var(--gold-400);
+  }
+  .hot__label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .dining {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .dining__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .dining__label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .dining__date {
+    margin-left: 4px;
+    color: #fff;
+  }
+  .seg {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.25);
+  }
+  .seg button {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  .seg button[aria-checked="true"] {
+    background: #fff;
+    color: var(--navy-900);
+  }
+  .dining__body {
+    flex: 1;
+  }
+  .dining__main {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .dining__sides {
+    margin-top: 6px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .dining__meta,
+  .dining__note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .dining__note {
+    color: var(--gold-400);
+    font-weight: 700;
+  }
+</style>

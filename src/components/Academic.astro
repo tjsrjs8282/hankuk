@@ -1,0 +1,433 @@
+---
+import Icon from "./Icon.astro";
+import { calendar, calendarKinds, ticker } from "../data/site";
+import { weeks, monthEvents, weekdays, rangeLabel, monthTitle, clampYm, todayKst, canPrev, canNext } from "../lib/cal";
+import { ui, t, type Lang } from "../i18n";
+
+/**
+ * 2020 had a month slider (2020 01 ~ 06) and a vertical "성적 열람 및 상담 신청" ticker
+ * with up/down buttons. Both are here: the ticker as 학사 알림, the slider as a real
+ * month calendar for 2026-2학기 → 2027-1학기 with the events of each month.
+ */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const today = todayKst();
+const ym = clampYm({ y: Number(today.slice(0, 4)), m: Number(today.slice(5, 7)) });
+const grid = weeks(ym, calendar);
+const list = monthEvents(ym, calendar);
+const kinds = Object.keys(calendarKinds) as (keyof typeof calendarKinds)[];
+---
+
+<section class="section academic" id="academic" aria-labelledby="academic-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Academic Calendar</p>
+        <h2 class="section-title" id="academic-title">{lang === "ko" ? "학사일정" : "Academic calendar"}</h2>
+        <p class="section-lead">{lang === "ko" ? "2026학년도 2학기부터 2027학년도 입학식까지, 놓치면 안 되는 날짜를 한눈에." : "Every date that matters, from fall 2026 to the 2027 entrance ceremony."}</p>
+      </div>
+      <ul class="legend" aria-label={lang === "ko" ? "범례" : "Legend"}>
+        {kinds.map((k) => <li class={`legend__item k-${k}`}>{t(calendarKinds[k], lang)}</li>)}
+      </ul>
+    </div>
+
+    <div class="ticker reveal" data-ticker>
+      <span class="ticker__badge"><Icon name="bell" size={16} />{lang === "ko" ? "학사 알림" : "Notice"}</span>
+      <div class="ticker__window" aria-live="polite">
+        <ul class="ticker__list" data-ticker-list>
+          {
+            ticker.map((n, i) => (
+              <li class="ticker__item" aria-hidden={i === 0 ? undefined : "true"}>
+                <strong>{t(n.title, lang)}</strong>
+                <span>{t(n.text, lang)}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="ticker__btns">
+        <button type="button" data-ticker-prev aria-label={t(ui.prev, lang)}><Icon name="chevron-up" size={18} /></button>
+        <button type="button" data-ticker-next aria-label={t(ui.next, lang)}><Icon name="chevron-down" size={18} /></button>
+      </div>
+    </div>
+
+    <div class="cal reveal" data-calendar data-ym={`${ym.y}-${ym.m}`}>
+      <div class="cal__month">
+        <div class="cal__nav">
+          <button type="button" class="cal__btn" data-cal-prev aria-label={lang === "ko" ? "이전 달" : "Previous month"} disabled={!canPrev(ym)}>
+            <Icon name="chevron-left" size={20} />
+          </button>
+          <h3 class="cal__title tabular" aria-live="polite" data-cal-title>{monthTitle(ym, lang)}</h3>
+          <button type="button" class="cal__btn" data-cal-next aria-label={lang === "ko" ? "다음 달" : "Next month"} disabled={!canNext(ym)}>
+            <Icon name="chevron-right" size={20} />
+          </button>
+        </div>
+        <table class="cal__grid">
+          <caption class="sr-only">{lang === "ko" ? "월간 학사일정" : "Monthly calendar"}</caption>
+          <thead>
+            <tr>{weekdays(lang).map((d, i) => <th scope="col" class:list={{ sun: i === 0, sat: i === 6 }}>{d}</th>)}</tr>
+          </thead>
+          <tbody data-cal-body>
+            {
+              grid.map((week) => (
+                <tr>
+                  {week.map((c, i) =>
+                    c ? (
+                      <td class:list={{ sun: i === 0, sat: i === 6, today: c.date === today, has: c.kinds.length > 0 }}>
+                        <span class="cal__day">{c.day}</span>
+                        {c.kinds.length > 0 && (
+                          <span class="cal__dots" aria-hidden="true">
+                            {c.kinds.map((k) => (
+                              <i class={`k-${k}`} />
+                            ))}
+                          </span>
+                        )}
+                      </td>
+                    ) : (
+                      <td class="empty" />
+                    ),
+                  )}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="cal__today">
+          <span class="cal__today-dot"></span>{t(ui.today, lang)} <span class="tabular" data-cal-today>{today.replaceAll("-", ".")}</span>
+        </p>
+      </div>
+      <ol class="cal__events" data-cal-events data-lenis-prevent>
+        {
+          list.map((e) => (
+            <li class:list={["cal__event", `k-${e.kind}`, { past: (e.end ?? e.start) < today, now: e.start <= today && (e.end ?? e.start) >= today }]}>
+              <span class="cal__when tabular">{rangeLabel(e, lang)}</span>
+              <span class="cal__what">{t(e.title, lang)}</span>
+              <span class="cal__kind">{t(calendarKinds[e.kind], lang)}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .academic {
+    background: var(--paper);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-500);
+  }
+  .legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend__item::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--k);
+  }
+  /* 2020 ticker */
+  .ticker {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 10px 10px 18px;
+    margin-bottom: 20px;
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-1);
+  }
+  .ticker__badge {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--navy-900);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+  .ticker__window {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    overflow: hidden;
+  }
+  .ticker__list {
+    transition: transform 0.55s var(--ease);
+  }
+  .ticker__item {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+  .ticker__item strong {
+    flex: none;
+    font-weight: 800;
+    color: var(--navy-900);
+  }
+  .ticker__item span {
+    min-width: 0;
+    color: var(--ink-500);
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ticker__btns {
+    display: flex;
+    flex-direction: column;
+  }
+  .ticker__btns button {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 24px;
+    border-radius: 6px;
+    color: var(--ink-500);
+  }
+  .ticker__btns button:hover {
+    background: var(--blue-50);
+    color: var(--navy-900);
+  }
+
+  /* calendar */
+  .cal {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 20px;
+  }
+  .cal__month,
+  .cal__events {
+    border-radius: var(--radius-l);
+    background: #fff;
+    box-shadow: var(--shadow-1);
+  }
+  .cal__month {
+    padding: 22px 24px 20px;
+  }
+  .cal__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .cal__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--navy-900);
+  }
+  .cal__btn {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    color: var(--navy-900);
+    transition:
+      background-color 0.2s,
+      border-color 0.2s;
+  }
+  .cal__btn:hover:not(:disabled) {
+    background: var(--navy-900);
+    border-color: var(--navy-900);
+    color: #fff;
+  }
+  .cal__btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  .cal__grid {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+  }
+  .cal__grid th {
+    padding: 8px 0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--ink-400);
+  }
+  .cal__grid :global(td) {
+    height: 52px;
+    vertical-align: top;
+    padding-top: 6px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--ink-700);
+  }
+  .cal__grid :global(.sun) {
+    color: var(--coral-600);
+  }
+  .cal__grid :global(.sat) {
+    color: var(--blue-600);
+  }
+  .cal__grid :global(.cal__day) {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .cal__grid :global(td.has .cal__day) {
+    background: var(--blue-50);
+    color: var(--navy-900);
+    font-weight: 800;
+  }
+  .cal__grid :global(td.today .cal__day) {
+    background: var(--navy-900);
+    color: #fff;
+  }
+  .cal__grid :global(.cal__dots) {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 3px;
+  }
+  .cal__grid :global(.cal__dots i) {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--k);
+  }
+  .cal__today {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 0.8125rem;
+    color: var(--ink-500);
+  }
+  .cal__today-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--navy-900);
+  }
+  .cal__events {
+    padding: 10px 8px;
+    max-height: 470px;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  .cal__events :global(.cal__event) {
+    display: grid;
+    grid-template-columns: 9.5em 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    position: relative;
+  }
+  :global(html[lang="en"]) .cal__events :global(.cal__event) {
+    grid-template-columns: 8.5em 1fr auto;
+  }
+  .cal__events :global(.cal__event + .cal__event) {
+    border-top: 1px solid var(--line);
+  }
+  .cal__events :global(.cal__event::before) {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 16px;
+    bottom: 16px;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--k);
+  }
+  .cal__events :global(.cal__when) {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--navy-900);
+  }
+  .cal__events :global(.cal__what) {
+    font-weight: 600;
+    color: var(--ink-700);
+  }
+  .cal__events :global(.cal__kind) {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+    color: color-mix(in srgb, var(--k) 62%, black);
+    background: color-mix(in srgb, var(--k) 12%, transparent);
+  }
+  .cal__events :global(.cal__event.past) {
+    opacity: 0.45;
+  }
+  .cal__events :global(.cal__event.now) {
+    background: var(--gold-100);
+  }
+  .cal__events :global(.cal__empty) {
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--ink-400);
+  }
+
+  @media (max-width: 900px) {
+    .cal {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .cal__events {
+      max-height: none;
+    }
+  }
+  @media (max-width: 560px) {
+    .ticker {
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      padding: 12px;
+    }
+    .ticker__window {
+      order: 3;
+      flex-basis: 100%;
+      height: 64px;
+    }
+    .ticker__item {
+      height: 64px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2px;
+    }
+    .ticker__item span {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      font-size: 0.8125rem;
+    }
+    .ticker__btns {
+      flex-direction: row;
+      margin-left: auto;
+    }
+    .cal__month {
+      padding: 18px 14px;
+    }
+    .cal__events :global(.cal__event) {
+      grid-template-columns: 1fr auto;
+      gap: 4px 12px;
+    }
+    .cal__events :global(.cal__when) {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

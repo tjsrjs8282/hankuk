@@ -1,0 +1,152 @@
+---
+import { Picture, Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import room from "../assets/photos/reading-room.jpg";
+import student from "../assets/photos/student-books.png";
+import { admission } from "../data/site";
+import { t, type Lang } from "../i18n";
+
+/** 2020: "2020년 신˙편입생 2차 모집 · 2020.01.06 ~ 1.13 · 입학사전예약 ▶" with a boy holding books. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<section class="tile t-admit admit" id="admission" aria-labelledby="admit-title">
+  <Picture src={room} widths={[700, 1200, 1800]} sizes="(min-width: 1100px) 75vw, 100vw" formats={["avif", "webp"]} alt="" loading="lazy" class="admit__bg" />
+  <div class="admit__shade"></div>
+  <div class="admit__in">
+    <div class="admit__copy">
+      <p class="admit__kicker">
+        <span class="admit__dday tabular" data-dday data-deadline={admission.deadline}>D-57</span>
+        <span data-dday-label>{lang === "ko" ? "정시 원서접수까지" : "until applications open"}</span>
+      </p>
+      <h2 id="admit-title" class="admit__title pre-line">{t(admission.title, lang)}</h2>
+      <dl class="admit__schedule">
+        {
+          admission.schedule.map((s) => (
+            <div>
+              <dt>{t(s.label, lang)}</dt>
+              <dd class="tabular">{t(s.date, lang)}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <button type="button" class="btn btn-coral" data-ask={t(admission.ask, lang)} aria-haspopup="dialog">
+        {t(admission.cta, lang)}
+        <Icon name="arrow-right" class="arrow" />
+      </button>
+    </div>
+    <Image src={student} widths={[300, 520, 760]} sizes="(min-width: 1100px) 300px, 40vw" alt={lang === "ko" ? "책을 안고 웃는 신입생" : "A smiling freshman holding books"} loading="lazy" class="admit__student" />
+  </div>
+</section>
+
+<style>
+  .admit {
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    background: #2a1d10;
+    color: #fff;
+  }
+  .admit :global(picture),
+  .admit__bg,
+  .admit__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .admit__bg {
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+  .admit:hover .admit__bg {
+    transform: scale(1.04);
+  }
+  .admit__shade {
+    background: linear-gradient(90deg, rgba(23, 10, 4, 0.9) 0%, rgba(40, 18, 8, 0.72) 42%, rgba(40, 18, 8, 0.2) 75%, rgba(40, 18, 8, 0.05) 100%);
+  }
+  .admit__in {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 28px clamp(24px, 4vw, 48px) 0;
+  }
+  .admit__copy {
+    padding-bottom: 28px;
+    max-width: 30rem;
+  }
+  .admit__kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .admit__dday {
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: var(--coral-600);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9375rem;
+  }
+  .admit__title {
+    margin-top: 12px;
+    font-size: clamp(1.7rem, 1.1rem + 1.8vw, 2.4rem);
+    line-height: 1.18;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .admit__schedule {
+    margin: 16px 0 22px;
+    display: grid;
+    gap: 6px;
+  }
+  .admit__schedule div {
+    display: flex;
+    gap: 12px;
+    font-size: 0.9375rem;
+  }
+  .admit__schedule dt {
+    min-width: 7.5em;
+    color: #ffb3aa;
+    font-weight: 700;
+  }
+  :global(html[lang="en"]) .admit__schedule dt {
+    min-width: 5.5em;
+  }
+  .admit__student {
+    align-self: flex-end;
+    width: clamp(170px, 24vw, 290px);
+    height: auto;
+    margin-right: clamp(0px, 4vw, 60px);
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
+    transition: transform 0.8s var(--ease);
+    transform-origin: bottom center;
+  }
+  .admit:hover .admit__student {
+    transform: scale(1.04) translateY(-4px);
+  }
+  @media (max-width: 680px) {
+    .admit__student {
+      position: absolute;
+      right: -14px;
+      bottom: 0;
+      width: 132px;
+      opacity: 0.4;
+    }
+    .admit__copy {
+      position: relative;
+    }
+    .admit__schedule div {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+</style>

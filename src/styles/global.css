@@ -1,0 +1,450 @@
+/* Pretendard, cut to exactly the characters in src/ at build time (scripts/font.mjs):
+   one ~90 KB variable file instead of ~17 slices. The full slices ("Pretendard Variable")
+   load only when the AI 도우미 opens, for text nobody could know in advance. */
+@font-face {
+  font-family: "Pretendard Site";
+  src: url("../assets/fonts/pretendard-site.woff2") format("woff2-variations");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Tokens ─────────────────────────────────────────────────────────────
+   The 2020 palette, kept and widened: #00163b navy, #0044af / #1651b7 blue,
+   #f13f33 admission red — plus ginkgo gold for the campus in November. */
+:root {
+  --navy-950: #050f26;
+  --navy-900: #0a1b3f;
+  --navy-800: #10265a;
+  --navy-700: #183573;
+  --blue-700: #1544b8;
+  --blue-600: #1d55d4;
+  --blue-500: #3a70ec;
+  --blue-100: #e5edff;
+  --blue-50: #f2f6ff;
+  --coral-700: #ad2c21;
+  --coral-600: #cf3a2d;
+  --coral-500: #f04a3c;
+  --gold-500: #e8a90c;
+  --gold-400: #f4b81c;
+  --gold-100: #fff3cf;
+  --paper: #f5f4f0;
+  --surface: #ffffff;
+  --ink-900: #0d1528;
+  --ink-700: #2b3550;
+  --ink-500: #5a6378;
+  --ink-400: #7b8397;
+  --line: #e2e5ec;
+  --line-strong: #cfd4de;
+
+  --font-sans: "Pretendard Site", "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-serif-stack: var(--font-serif, "Cormorant Garamond"), Georgia, "Times New Roman", serif;
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --max: 1280px;
+  --radius-s: 10px;
+  --radius: 16px;
+  --radius-l: 24px;
+  --shadow-1: 0 1px 2px rgba(10, 27, 63, 0.06), 0 2px 8px rgba(10, 27, 63, 0.05);
+  --shadow-2: 0 10px 30px -10px rgba(10, 27, 63, 0.28), 0 2px 6px rgba(10, 27, 63, 0.06);
+  --shadow-3: 0 30px 60px -20px rgba(5, 15, 38, 0.45);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --header-h: 76px;
+
+  /* 글자크기 control (src/scripts/fontsize.ts) scales the root size; layout follows rem. */
+  --fs-scale: 1;
+  color-scheme: light;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  font-size: calc(100% * var(--fs-scale));
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+html:not(.lenis) {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-900);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+}
+img,
+video,
+svg,
+picture {
+  display: block;
+  max-width: 100%;
+}
+img,
+video {
+  height: auto;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+:focus-visible {
+  outline: 3px solid var(--blue-500);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.on-dark :focus-visible,
+:is(.hero, .util, .footer, .about, .seasons) :focus-visible {
+  outline-color: var(--gold-400);
+}
+::selection {
+  background: var(--gold-400);
+  color: var(--navy-950);
+}
+[hidden] {
+  display: none !important;
+}
+
+/* ── Utilities ──────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: calc(var(--max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -100px;
+  z-index: 1000;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: var(--gold-400);
+  color: var(--navy-950);
+  font-weight: 700;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 16px;
+}
+.pre-line {
+  white-space: pre-line;
+}
+.serif {
+  font-family: var(--font-serif-stack);
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Section heading ───────────────────────────────────────────────── */
+.section {
+  padding-block: clamp(72px, 10vw, 128px);
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+  color: var(--blue-600);
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1.5px;
+  background: currentColor;
+}
+.section-title {
+  margin-top: 10px;
+  font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.9rem);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--navy-900);
+}
+.section-lead {
+  margin-top: 14px;
+  max-width: 46ch;
+  font-size: 1.0625rem;
+  color: var(--ink-500);
+}
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(32px, 4vw, 52px);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  transition: transform 0.3s var(--ease);
+}
+.btn:hover svg.arrow,
+.btn:focus-visible svg.arrow {
+  transform: translateX(4px);
+}
+.btn-primary {
+  background: var(--blue-600);
+  color: #fff;
+  box-shadow: 0 8px 20px -8px rgba(29, 85, 212, 0.7);
+}
+.btn-primary:hover {
+  background: var(--blue-700);
+}
+.btn-light {
+  background: #fff;
+  color: var(--navy-900);
+}
+.btn-light:hover {
+  background: var(--gold-100);
+}
+.btn-ghost {
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+}
+.btn-ghost:hover {
+  background: #fff;
+  color: var(--navy-900);
+  border-color: #fff;
+}
+.btn-coral {
+  background: var(--coral-600);
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgba(240, 74, 60, 0.8);
+}
+.btn-coral:hover {
+  background: var(--coral-700);
+}
+.btn-outline {
+  border: 1.5px solid var(--line-strong);
+  color: var(--navy-900);
+  background: #fff;
+}
+.btn-outline:hover {
+  border-color: var(--navy-900);
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* A text link with an arrow, used in tiles. */
+.more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.more-link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease);
+}
+.more-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* Chip / tag */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* 학사일정 kinds — global because scripts/calendar.ts redraws the grid. */
+.k-academic {
+  --k: var(--blue-600);
+}
+.k-exam {
+  --k: var(--coral-500);
+}
+.k-admission {
+  --k: #7c4dff;
+}
+.k-event {
+  --k: var(--gold-500);
+}
+.k-break {
+  --k: #0f9d76;
+}
+
+/* ── Dialogs (native <dialog>) ─────────────────────────────────────── */
+dialog {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+}
+dialog::backdrop {
+  background: rgba(5, 15, 38, 0.72);
+  backdrop-filter: blur(4px);
+}
+dialog[open] {
+  animation: dialog-in 0.35s var(--ease);
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+}
+html.dialog-open {
+  overflow: hidden;
+}
+
+/* ── Toast (demo-link notice) ─────────────────────────────────────── */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 900;
+  max-width: min(92vw, 520px);
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: var(--navy-900);
+  color: #fff;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  box-shadow: var(--shadow-3);
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+.toast.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ── Reveal on scroll (motion.ts adds .reveal only when motion is allowed) ── */
+.js-motion .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+/* Failsafe: if the app script never runs, show everything after 4 s. */
+.js-motion .reveal {
+  animation: reveal-failsafe 0s 4s forwards;
+}
+.js-motion.motion-ready .reveal {
+  animation: none;
+}
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

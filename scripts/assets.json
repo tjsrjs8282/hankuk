@@ -1,0 +1,311 @@
+{
+  "note": "Higgsfield generations behind every photo and video on the page. `npm run assets:fetch` downloads them to .cache/raw/; images.mjs / media.mjs turn them into src/assets and public/media.",
+  "assets": [
+    {
+      "name": "hero-a",
+      "job": "6d625769-ad15-4657-a7d7-261e2feec629",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "16:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Wide cinematic establishing photograph of a prestigious Korean university campus in late autumn at golden hour. A grand neoclassical granite main hall with a slender central clock tower and a six-column portico stands at the end of a long, wide pedestrian boulevard lined on both sides with brilliant yellow ginkgo trees. Fallen golden ginkgo leaves cover the pale stone pavement. Small groups of university students in autumn coats and scarves walk and chat, some carrying books and tote bags. Soft low sun from the left casting long warm shadows, gentle atmospheric haze, forested blue-green hills of Seoul in the distance behind the building, clear soft sky. Composition: main hall slightly right of center, calmer open sky and tree canopy on the left third. Elevated drone viewpoint about 15 meters high, 35mm lens, natural documentary color grading, crisp architectural detail, high dynamic range, photorealistic. Absolutely no text, no signage, no letters, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200420_6d625769-ad15-4657-a7d7-261e2feec629.png"
+    },
+    {
+      "name": "hero-b",
+      "job": "661a6316-f8d6-480f-8914-5151faf8dcdb",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "16:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "(same as hero-a — second variant)",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200420_661a6316-f8d6-480f-8914-5151faf8dcdb.png"
+    },
+    {
+      "name": "slide-admission",
+      "job": "09c465ea-ee35-4a6f-b495-283e72aeaf43",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "16:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Bright, airy modern university atrium with wide wooden stair-seating (bleacher stairs) bathed in warm afternoon sunlight pouring through a tall glass curtain wall. A diverse group of Korean first-year university students, around 19 years old, in casual autumn outfits laugh and talk on the stairs, holding tablets, notebooks and coffee cups. Optimistic, candid lifestyle photography, natural poses, shallow depth of field, 50mm lens, soft warm color grading with navy and cream tones. Photorealistic. No readable text, no signage, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200452_09c465ea-ee35-4a6f-b495-283e72aeaf43.png"
+    },
+    {
+      "name": "slide-global",
+      "job": "61de4030-2241-473a-a707-ea44f458b46f",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "16:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Candid documentary photograph of international exchange students at a Korean university: a friendly mixed group of young adults of East Asian, Southeast Asian, South Asian, African and European backgrounds walking together and chatting on a campus path lined with bright yellow ginkgo trees in late autumn. Genuine smiles, backpacks and books, golden backlight from a low sun, fallen yellow leaves, 85mm lens, shallow depth of field, natural color grading. Photorealistic. No readable text, no signage, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200452_61de4030-2241-473a-a707-ea44f458b46f.png"
+    },
+    {
+      "name": "slide-ai-lab",
+      "job": "54b7cb90-2b47-4c8c-bd97-b96b9486b025",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "16:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Cinematic editorial photograph of university students and a professor collaborating in a state-of-the-art AI and robotics research lab. A white collaborative robot arm on a walnut workbench, large curved displays showing abstract glowing neural-network data visualizations in blue and white, clean white and light-wood interior, cool blue accent lighting mixed with warm practical lamps, students pointing at the screen in discussion. 35mm lens, realistic, crisp detail. No readable text, no letters, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200453_54b7cb90-2b47-4c8c-bd97-b96b9486b025.png"
+    },
+    {
+      "name": "slide-library",
+      "job": "ec04d36b-d59e-4787-a237-3a6c6d545ce7",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "16:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Architectural photograph of a striking modern university library at dusk: a four-story building of glass and warm timber louvers glowing with golden interior light, students visible studying at long tables across multiple floors, the building mirrored in a shallow reflecting pool in the foreground, a few ginkgo trees with yellow leaves at the edges, deep blue twilight sky. 24mm tilt-shift lens, straight verticals, crisp lines, calm and inviting mood. Photorealistic. No text, no signage, no letters, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200452_ec04d36b-d59e-4787-a237-3a6c6d545ce7.png"
+    },
+    {
+      "name": "library-portrait",
+      "job": "16ee9048-4391-4797-bd0a-8d071ed5328f",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "2:3",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Vertical photograph of a tall, warmly lit classic university library reading room: floor-to-ceiling dark oak bookshelves, a brass rolling ladder, green banker's lamps glowing on long oak tables, arched windows with soft evening light, gentle bokeh, rich navy and amber tones, calm and quiet atmosphere, no people in focus. 35mm lens, photorealistic. No readable text, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200452_16ee9048-4391-4797-bd0a-8d071ed5328f.png"
+    },
+    {
+      "name": "student-books",
+      "job": "d3f0aa50-52d1-4cdc-ab86-1d30963c891a",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "4:5",
+        "quality": "high",
+        "resolution": "2k",
+        "background": "transparent"
+      },
+      "prompt": "Waist-up portrait of a cheerful Korean university student, about 19 years old, holding a stack of four colorful hardcover books against the chest with both arms, wearing a cream cable-knit sweater over a navy collared shirt, neat short hair, looking at the camera with a confident, friendly smile. Soft, even studio lighting, photorealistic, sharp focus, natural skin texture. Subject fully isolated on a completely transparent background with clean edges, no backdrop, no floor, no shadow, no text, no logos.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200452_d3f0aa50-52d1-4cdc-ab86-1d30963c891a.png"
+    },
+    {
+      "name": "reading-room-wide",
+      "job": "a6752de6-6640-4267-94a3-3a7e13361511",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "21:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Wide panoramic interior of a grand classic university library reading room: tall arched windows, endless rows of warm wooden bookshelves receding into the distance, long reading tables with brass lamps, warm golden afternoon light with soft dust in the air, slightly soft focus overall so it works as a calm background, cream, amber and deep navy tones. Photorealistic, no people, no readable text, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200451_a6752de6-6640-4267-94a3-3a7e13361511.png"
+    },
+    {
+      "name": "festival-night",
+      "job": "23cb24bc-2ffa-413b-953d-a80f7364d0ae",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "4:3",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Night photograph of a lively autumn university festival on campus: a crowd of students enjoying an outdoor stage concert under strings of warm festoon lights, food booths and small tents along a path lined with yellow ginkgo trees lit from below, joyful candid moments, raised phones with screens glowing, soft haze catching stage lights in navy, blue and warm amber. 35mm night photography, natural grain, photorealistic. No readable text, no letters on banners, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200452_23cb24bc-2ffa-413b-953d-a80f7364d0ae.png"
+    },
+    {
+      "name": "campus-map",
+      "job": "5d0fee81-9390-4fbf-814e-fb553fd36c30",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "16:9",
+        "quality": "high",
+        "resolution": "2k"
+      },
+      "prompt": "Isometric illustrated map of a fictional Korean university campus, clean modern vector illustration with soft shading and subtle texture, calm palette of deep navy, sky blue, warm stone beige, soft green and ginkgo yellow on an off-white background. Center: a neoclassical stone main hall with a clock tower facing a circular plaza with a fountain. Around it, clearly separated with space between them: a modern glass library building on the left, two engineering and AI research buildings at the upper right, a student union and cafeteria with an outdoor terrace at the lower right, three dormitory towers at the upper left, a gymnasium beside a red running track and green soccer field at the far right, a main gate at the bottom center opening onto a long boulevard lined with yellow ginkgo trees, and a small pond with a traditional Korean pavilion at the lower left. Light grey paths connect every building, tiny students walking. Whole campus fits in frame with generous margins. Completely free of any text, labels, letters, numbers, signs or logos.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200451_5d0fee81-9390-4fbf-814e-fb553fd36c30.png"
+    },
+    {
+      "name": "season-spring",
+      "job": "e0a50a04-3c77-47d8-9bf0-d9c019162b91",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "3:2",
+        "quality": "high",
+        "resolution": "2k",
+        "image_references": [
+          "hero-b"
+        ]
+      },
+      "prompt": "Keep the reference image's architecture and viewpoint exactly: the same neoclassical granite main hall with the slender central clock tower and six-column portico, the same long pedestrian boulevard, the same elevated drone angle and the same hills behind. Change the season to early April spring: cherry blossom trees in full pale-pink bloom line the boulevard instead of ginkgo trees, petals drifting in the air and scattered on the pale stone pavement, fresh bright-green lawns, students in light spring jackets walking and chatting, bright clear morning light, soft blue sky with thin clouds. Photorealistic, natural documentary color grading. No text, no signage, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200924_e0a50a04-3c77-47d8-9bf0-d9c019162b91.png"
+    },
+    {
+      "name": "season-summer",
+      "job": "63017571-855b-4df5-b7e4-e91a4d22f20c",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "3:2",
+        "quality": "high",
+        "resolution": "2k",
+        "image_references": [
+          "hero-b"
+        ]
+      },
+      "prompt": "Keep the reference image's architecture and viewpoint exactly: the same neoclassical granite main hall with the slender central clock tower and six-column portico, the same long pedestrian boulevard, the same elevated drone angle and the same hills behind. Change the season to early July summer: lush deep-green leafy trees line the boulevard, vivid blue sky with big white cumulus clouds, strong clear midday sunlight with crisp short shadows, students in t-shirts and light shirts walking or resting in the shade, deep green forested hills behind. Photorealistic, natural documentary color grading. No text, no signage, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200924_63017571-855b-4df5-b7e4-e91a4d22f20c.png"
+    },
+    {
+      "name": "season-autumn",
+      "job": "a03b73d7-99c6-4e20-a63d-4f73883304ce",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "3:2",
+        "quality": "high",
+        "resolution": "2k",
+        "image_references": [
+          "season-summer"
+        ]
+      },
+      "prompt": "Keep the reference image's composition pixel-for-pixel: the same neoclassical granite main hall with the slender central clock tower and six-column portico at the same size and position, the same boulevard, the same trees in the same places, the same elevated drone angle, the same hills and city on the horizon. Change only the season to late-autumn golden hour in November: every tree along the boulevard is a brilliant yellow ginkgo, golden leaves carpet the pale stone pavement and lawns, warm low sunlight from the left with long soft shadows, gentle haze, autumn-colored forested hills behind, students in autumn coats and scarves walking. Photorealistic, natural documentary color grading. No text, no signage, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_201948_a03b73d7-99c6-4e20-a63d-4f73883304ce.png"
+    },
+    {
+      "name": "season-winter",
+      "job": "37f37cb2-93fc-4e62-b19c-039ff981850f",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "3:2",
+        "quality": "high",
+        "resolution": "2k",
+        "image_references": [
+          "hero-b"
+        ]
+      },
+      "prompt": "Keep the reference image's architecture and viewpoint exactly: the same neoclassical granite main hall with the slender central clock tower and six-column portico, the same long pedestrian boulevard, the same elevated drone angle and the same hills behind. Change the season to January winter right after a fresh snowfall: thick clean snow blankets the roofs, the wide steps, the lawns and the bare branches of the trees along the boulevard, soft pale overcast sky, warm yellow lights glowing in the hall's windows, a few students in long padded coats and scarves walking and leaving footprints in the snow, snowy white hills behind. Photorealistic, natural documentary color grading. No text, no signage, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200923_37f37cb2-93fc-4e62-b19c-039ff981850f.png"
+    },
+    {
+      "name": "season-night",
+      "job": "809ee8d9-1223-4979-8027-97dd5514eeea",
+      "model": "gpt_image_2_5",
+      "settings": {
+        "aspect_ratio": "3:2",
+        "quality": "high",
+        "resolution": "2k",
+        "image_references": [
+          "hero-b"
+        ]
+      },
+      "prompt": "Keep the reference image's architecture and viewpoint exactly: the same neoclassical granite main hall with the slender central clock tower and six-column portico, the same long pedestrian boulevard, the same elevated drone angle and the same hills behind. Change the time to late-autumn blue hour just after sunset: the hall's facade washed in warm golden uplighting, the clock face glowing, the yellow ginkgo trees along the boulevard lit from below and glowing, warm street lamps along the path, deep blue twilight sky with a thin orange band on the horizon, city lights twinkling on the distant hills, a few students walking. Photorealistic, natural night color grading. No text, no signage, no logos, no watermarks.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200923_809ee8d9-1223-4979-8027-97dd5514eeea.png"
+    },
+    {
+      "name": "hero-loop",
+      "job": "997956bd-e403-417e-823d-b2b3ab52ba0c",
+      "model": "kling3_0",
+      "settings": {
+        "mode": "pro",
+        "sound": "off",
+        "duration": 10,
+        "aspect_ratio": "16:9",
+        "start_image": "hero-b"
+      },
+      "prompt": "Slow, steady cinematic drone dolly gliding forward along the ginkgo boulevard toward the clock-tower main hall. Golden ginkgo leaves gently drift down through the warm low sunlight, students keep walking naturally along the path, tree crowns sway slightly in a light breeze, soft haze over the hills. Smooth, stable, realistic motion, constant slow speed, no cuts, no camera shake, no text.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200926_997956bd-e403-417e-823d-b2b3ab52ba0c.mp4"
+    },
+    {
+      "name": "reel-1-boulevard",
+      "job": "2756f04d-5ad5-495a-9925-dc15eeab75fe",
+      "model": "kling3_0",
+      "settings": {
+        "mode": "pro",
+        "sound": "off",
+        "duration": 5,
+        "aspect_ratio": "16:9",
+        "start_image": "hero-a"
+      },
+      "prompt": "Gentle drone glide forward and slightly down over the ginkgo boulevard toward the main hall, golden leaves drifting in the air, students walking and chatting, warm golden-hour light, smooth realistic motion, no cuts, no text.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200942_2756f04d-5ad5-495a-9925-dc15eeab75fe.mp4"
+    },
+    {
+      "name": "reel-2-friends",
+      "job": "5ccd625f-8db9-44e4-93ef-638fc105ca5a",
+      "model": "kling3_0",
+      "settings": {
+        "mode": "pro",
+        "sound": "off",
+        "duration": 5,
+        "aspect_ratio": "16:9",
+        "start_image": "slide-global"
+      },
+      "prompt": "The group of friends walks toward the camera along the ginkgo path, chatting and laughing naturally, yellow leaves falling around them in the golden backlight, smooth slow tracking shot moving backward with them, realistic, no cuts, no text.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200941_5ccd625f-8db9-44e4-93ef-638fc105ca5a.mp4"
+    },
+    {
+      "name": "reel-3-stairs",
+      "job": "36a29222-417a-471d-b9f9-658cf3fb33e9",
+      "model": "kling3_0",
+      "settings": {
+        "mode": "pro",
+        "sound": "off",
+        "duration": 5,
+        "aspect_ratio": "16:9",
+        "start_image": "slide-admission"
+      },
+      "prompt": "The students laugh and chat naturally on the sunlit wooden stairs, one gestures while telling a story, another sips coffee, others smile and nod, subtle slow camera push-in, warm afternoon light, realistic natural movement, no cuts, no text.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200927_36a29222-417a-471d-b9f9-658cf3fb33e9.mp4"
+    },
+    {
+      "name": "reel-4-lab",
+      "job": "e630ab5b-905c-4d40-8bc1-588453ff44b8",
+      "model": "kling3_0",
+      "settings": {
+        "mode": "pro",
+        "sound": "off",
+        "duration": 5,
+        "aspect_ratio": "16:9",
+        "start_image": "slide-ai-lab"
+      },
+      "prompt": "The white robot arm smoothly rotates and lifts a small component from the bench while the students and the professor watch and point at the glowing screens, the neural-network visualizations pulse and rotate subtly, slow camera slide to the right, realistic, no cuts, no text.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200927_e630ab5b-905c-4d40-8bc1-588453ff44b8.mp4"
+    },
+    {
+      "name": "reel-5-library",
+      "job": "f494fa76-4dab-459a-8661-04536317aec8",
+      "model": "kling3_0",
+      "settings": {
+        "mode": "pro",
+        "sound": "off",
+        "duration": 5,
+        "aspect_ratio": "16:9",
+        "start_image": "slide-library"
+      },
+      "prompt": "Twilight at the library: students inside turn pages and walk between the long tables, warm interior lights glow, gentle ripples move across the reflecting pool and distort the reflection softly, a light breeze stirs the yellow ginkgo leaves, slow steady camera push-in, realistic, no cuts, no text.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200926_f494fa76-4dab-459a-8661-04536317aec8.mp4"
+    },
+    {
+      "name": "reel-6-festival",
+      "job": "66e8f5e0-b05e-4e71-9cad-386409fb7104",
+      "model": "kling3_0",
+      "settings": {
+        "mode": "pro",
+        "sound": "off",
+        "duration": 5,
+        "aspect_ratio": "16:9",
+        "start_image": "festival-night"
+      },
+      "prompt": "The festival crowd cheers and sways to the music, stage lights sweep through the haze in blue and amber, festoon lights twinkle overhead, people raise phones to film, a girl in the foreground laughs, slow stable camera move forward into the crowd, realistic night footage, no cuts, no text.",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3LW5QJVbnlgHA3ylt0hPjtyaSKO/hf_20261101_200942_66e8f5e0-b05e-4e71-9cad-386409fb7104.mp4"
+    }
+  ]
+}

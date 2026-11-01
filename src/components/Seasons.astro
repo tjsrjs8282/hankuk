@@ -1,0 +1,257 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import spring from "../assets/photos/season-spring.jpg";
+import summer from "../assets/photos/season-summer.jpg";
+import autumn from "../assets/photos/season-autumn.jpg";
+import winter from "../assets/photos/season-winter.jpg";
+import { seasons } from "../data/site";
+import { ui, t, type Lang } from "../i18n";
+
+/**
+ * 사계절 본관 — four Higgsfield frames of one view, generated against the same reference
+ * so the hall and the boulevard stay put. Drag (or let it play) to cross-fade the year.
+ */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const images: Record<string, ImageMetadata> = { "season-spring": spring, "season-summer": summer, "season-autumn": autumn, "season-winter": winter };
+const start = 2; // autumn — it's November
+---
+
+<section class="seasons" id="seasons" aria-labelledby="seasons-title" data-seasons data-start={start * 100}>
+  <div class="seasons__stage" aria-hidden="true">
+    {
+      seasons.map((s, i) => (
+        <Picture
+          src={images[s.image]}
+          widths={[768, 1280, 1600, 2048]}
+          sizes="100vw"
+          formats={["avif", "webp"]}
+          alt=""
+          loading="lazy"
+          class="seasons__img"
+          data-season-img={i}
+          style={i === 0 ? undefined : `opacity:${i <= start ? 1 : 0}`}
+        />
+      ))
+    }
+    <div class="seasons__shade"></div>
+  </div>
+
+  <div class="container seasons__in">
+    <div class="seasons__copy">
+      <p class="eyebrow seasons__eyebrow">Four Seasons</p>
+      <h2 class="section-title seasons__title" id="seasons-title">{lang === "ko" ? "사계절, 같은 자리의 본관" : "One hall, four seasons"}</h2>
+      <p class="seasons__caption" aria-live="polite">
+        <span class="seasons__month serif" data-season-month>{t(seasons[start].month, lang)}</span>
+        <span data-season-caption>{t(seasons[start].caption, lang)}</span>
+      </p>
+    </div>
+
+    <div class="seasons__control">
+      <div class="seasons__track">
+        <input
+          type="range"
+          min="0"
+          max={(seasons.length - 1) * 100}
+          step="1"
+          value={start * 100}
+          class="seasons__range"
+          aria-label={lang === "ko" ? "계절" : "Season"}
+          aria-valuetext={t(seasons[start].name, lang)}
+          data-season-range
+        />
+        <div class="seasons__ticks">
+          {
+            seasons.map((s, i) => (
+              <button type="button" class:list={["seasons__tick", { "is-active": i === start }]} data-season={i} aria-pressed={i === start ? "true" : "false"}>
+                {t(s.name, lang)}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+      <button type="button" class="seasons__play" data-season-toggle aria-pressed="false" data-label-pause={t(ui.pause, lang)} data-label-play={lang === "ko" ? "사계절 자동 재생" : "Play the seasons"} aria-label={lang === "ko" ? "사계절 자동 재생" : "Play the seasons"}>
+        <Icon name="play" size={16} class="i-play" />
+        <Icon name="pause" size={16} class="i-pause" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .seasons {
+    position: relative;
+    min-height: min(92vh, 860px);
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    background: var(--navy-950);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .seasons__stage {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .seasons__stage :global(picture),
+  .seasons__img,
+  .seasons__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .seasons__img {
+    object-fit: cover;
+    object-position: 70% 40%;
+    will-change: opacity;
+  }
+  .seasons__shade {
+    background:
+      linear-gradient(0deg, rgba(5, 15, 38, 0.9) 0%, rgba(5, 15, 38, 0.45) 32%, rgba(5, 15, 38, 0) 60%),
+      linear-gradient(90deg, rgba(5, 15, 38, 0.55) 0%, rgba(5, 15, 38, 0) 50%);
+  }
+  .seasons__in {
+    padding-top: 120px;
+    padding-bottom: clamp(48px, 7vw, 88px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+    align-items: end;
+    gap: 32px 48px;
+  }
+  .seasons__eyebrow {
+    color: var(--gold-400);
+  }
+  .seasons__title {
+    color: #fff;
+  }
+  .seasons__caption {
+    margin-top: 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.86);
+    min-height: 3.4em;
+  }
+  .seasons__month {
+    flex: none;
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--gold-400);
+  }
+
+  .seasons__control {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: var(--radius-l);
+    background: rgba(5, 15, 38, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+  }
+  .seasons__track {
+    flex: 1;
+  }
+  .seasons__range {
+    width: 100%;
+    appearance: none;
+    height: 26px;
+    background: transparent;
+    cursor: grab;
+  }
+  .seasons__range:active {
+    cursor: grabbing;
+  }
+  .seasons__range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #f7b6c8 0%, #4caf50 33%, var(--gold-400) 66%, #dfe8f5 100%);
+  }
+  .seasons__range::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #f7b6c8 0%, #4caf50 33%, var(--gold-400) 66%, #dfe8f5 100%);
+  }
+  .seasons__range::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    margin-top: -10px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid var(--navy-900);
+    box-shadow: 0 0 0 2px #fff, 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  .seasons__range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid var(--navy-900);
+    box-shadow: 0 0 0 2px #fff, 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  .seasons__ticks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .seasons__tick {
+    padding: 4px 6px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.2s;
+  }
+  .seasons__tick:first-child {
+    margin-left: -6px;
+  }
+  .seasons__tick:last-child {
+    margin-right: -6px;
+  }
+  .seasons__tick.is-active,
+  .seasons__tick:hover {
+    color: #fff;
+  }
+  .seasons__play {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--navy-900);
+    transition: transform 0.25s var(--ease);
+  }
+  .seasons__play:hover {
+    transform: scale(1.06);
+  }
+  .seasons__play .i-pause {
+    display: none;
+  }
+  .seasons__play[aria-pressed="true"] .i-pause {
+    display: block;
+  }
+  .seasons__play[aria-pressed="true"] .i-play {
+    display: none;
+  }
+  /* Keep the control clear of the floating to-top / AI buttons where they'd overlap. */
+  @media (min-width: 901px) and (max-width: 1640px) {
+    .seasons__control {
+      margin-right: 64px;
+    }
+  }
+  @media (max-width: 900px) {
+    .seasons__in {
+      grid-template-columns: minmax(0, 1fr);
+      padding-bottom: 96px;
+    }
+  }
+</style>

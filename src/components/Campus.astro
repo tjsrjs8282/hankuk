@@ -1,0 +1,349 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import map from "../assets/photos/campus-map.jpg";
+import { spots, directions, contact } from "../data/site";
+import { t, type Lang } from "../i18n";
+
+/** 캠퍼스 맵 (illustrated, Higgsfield) with hotspots + 찾아오시는 길 (2020 top-bar link, now real). */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const modeIcon = ["train", "shuttle", "bus"] as const;
+---
+
+<section class="section campus" id="campus" aria-labelledby="campus-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Campus Map</p>
+        <h2 class="section-title" id="campus-title">{lang === "ko" ? "캠퍼스 둘러보기" : "Around campus"}</h2>
+        <p class="section-lead">{lang === "ko" ? "번호를 누르면 건물 안내가 열립니다." : "Pick a number to learn about each building."}</p>
+      </div>
+    </div>
+
+    <div class="map reveal" data-map>
+      <div class="map__stage">
+        <Picture src={map} widths={[768, 1280, 1920, 2688]} sizes="(min-width: 1180px) 820px, 100vw" formats={["avif", "webp"]} alt={lang === "ko" ? "한국대학교 캠퍼스 일러스트 지도" : "Illustrated map of Hanguk University"} loading="lazy" class="map__img" />
+        {
+          spots.map((s, i) => (
+            <button
+              type="button"
+              class="map__pin"
+              style={`left:${s.x}%;top:${s.y}%`}
+              data-spot={s.id}
+              aria-label={t(s.name, lang)}
+              aria-pressed={i === 0 ? "true" : "false"}
+            >
+              <span>{i + 1}</span>
+            </button>
+          ))
+        }
+      </div>
+      <div class="map__side">
+        <div class="map__card" aria-live="polite" data-spot-card>
+          <p class="map__num tabular" data-spot-num>01</p>
+          <h3 class="map__name" data-spot-name>{t(spots[0].name, lang)}</h3>
+          <p class="map__text" data-spot-text>{t(spots[0].text, lang)}</p>
+        </div>
+        <ol class="map__list">
+          {
+            spots.map((s, i) => (
+              <li>
+                <button type="button" class:list={["map__item", { "is-active": i === 0 }]} data-spot={s.id}>
+                  <span class="map__item-num tabular">{String(i + 1).padStart(2, "0")}</span>
+                  {t(s.name, lang)}
+                </button>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+
+    <div class="dir reveal" id="directions">
+      <div class="dir__head">
+        <h3 class="dir__title">{lang === "ko" ? "찾아오시는 길" : "Getting here"}</h3>
+        <p class="dir__addr"><Icon name="pin" size={18} />{t(directions.address, lang)}</p>
+      </div>
+      <ul class="dir__routes">
+        {
+          directions.routes.map((r, i) => (
+            <li class="dir__route">
+              <span class="dir__icon">
+                <Icon name={modeIcon[i]} size={22} />
+              </span>
+              <span>
+                <strong>{t(r.mode, lang)}</strong>
+                <span>{t(r.text, lang)}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="dir__contact">
+        <span><Icon name="phone" size={16} />{lang === "ko" ? "대표전화" : "Main line"} <b class="tabular">{contact.phone}</b></span>
+        <button type="button" class="more-link" data-ask={lang === "ko" ? "학교에 어떻게 가?" : "How do I get to campus?"} aria-haspopup="dialog">
+          {lang === "ko" ? "AI 도우미에게 길 묻기" : "Ask the AI assistant"}
+          <Icon name="arrow-right" />
+        </button>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .campus {
+    background: var(--paper);
+  }
+  .map {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 20px;
+    align-items: start;
+  }
+  .map__stage {
+    position: relative;
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    background: #fbf8f1;
+    box-shadow: var(--shadow-1);
+  }
+  .map__img {
+    width: 100%;
+    height: auto;
+  }
+  .map__pin {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--navy-900);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 800;
+    box-shadow:
+      0 0 0 3px #fff,
+      0 6px 14px rgba(5, 15, 38, 0.35);
+    transition:
+      transform 0.3s var(--ease),
+      background-color 0.3s,
+      color 0.3s;
+  }
+  .map__pin::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-400);
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+      opacity 0.3s,
+      transform 0.3s var(--ease);
+  }
+  .map__pin:hover,
+  .map__pin[aria-pressed="true"] {
+    transform: scale(1.18);
+    background: var(--gold-400);
+    color: var(--navy-950);
+    z-index: 2;
+  }
+  .map__pin[aria-pressed="true"]::after {
+    opacity: 1;
+    transform: scale(1.5);
+    animation: pin-pulse 1.8s var(--ease) infinite;
+  }
+  @keyframes pin-pulse {
+    50% {
+      transform: scale(1.8);
+      opacity: 0.3;
+    }
+  }
+  .map__side {
+    display: grid;
+    gap: 14px;
+  }
+  .map__card {
+    padding: 22px 22px 20px;
+    border-radius: var(--radius-l);
+    background: var(--navy-900);
+    color: #fff;
+    min-height: 168px;
+  }
+  .map__num {
+    font-family: var(--font-serif-stack);
+    font-variant-numeric: lining-nums;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold-400);
+    line-height: 1;
+  }
+  .map__name {
+    margin-top: 8px;
+    font-size: 1.25rem;
+    font-weight: 800;
+  }
+  .map__text {
+    margin-top: 6px;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .map__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 10px;
+    border-radius: var(--radius-l);
+    background: #fff;
+    box-shadow: var(--shadow-1);
+  }
+  .map__item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink-700);
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  .map__item:hover {
+    background: var(--blue-50);
+  }
+  .map__item.is-active {
+    background: var(--navy-900);
+    color: #fff;
+  }
+  .map__item-num {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--blue-600);
+  }
+  .map__item.is-active .map__item-num {
+    color: var(--gold-400);
+  }
+
+  .dir {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 16px 32px;
+    padding: 28px;
+    border-radius: var(--radius-l);
+    background: #fff;
+    box-shadow: var(--shadow-1);
+  }
+  .dir__title {
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: var(--navy-900);
+  }
+  .dir__addr {
+    margin-top: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    color: var(--ink-700);
+    font-weight: 600;
+  }
+  .dir__addr :global(svg) {
+    margin-top: 3px;
+    color: var(--coral-500);
+    flex: none;
+  }
+  .dir__routes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .dir__route {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 14px;
+    background: var(--paper);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--ink-500);
+  }
+  .dir__route strong {
+    display: block;
+    color: var(--navy-900);
+    margin-bottom: 2px;
+  }
+  .dir__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--blue-600);
+    box-shadow: var(--shadow-1);
+  }
+  .dir__contact {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+  }
+  .dir__contact > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dir__contact b {
+    color: var(--navy-900);
+  }
+  .dir__contact .more-link {
+    color: var(--blue-600);
+  }
+  @media (max-width: 1180px) {
+    .map {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .map__side {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .dir {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 720px) {
+    .map__pin {
+      width: 24px;
+      height: 24px;
+      margin: -12px 0 0 -12px;
+      font-size: 0.6875rem;
+      box-shadow:
+        0 0 0 2px #fff,
+        0 4px 8px rgba(5, 15, 38, 0.3);
+    }
+    .map__side {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .dir__routes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .dir {
+      padding: 20px;
+    }
+  }
+</style>

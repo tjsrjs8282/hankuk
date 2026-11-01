@@ -1,0 +1,127 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import autumn from "../assets/photos/season-autumn.jpg";
+import type { Lang } from "../i18n";
+
+/** 2020: 캠퍼스 갤러리 — a dark panel slides up over the photo, "본관 보러가기". */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<a class="tile t-gallery gallery" href="#seasons">
+  <Picture src={autumn} widths={[400, 700, 1000]} sizes="(min-width: 1100px) 25vw, (min-width: 681px) 50vw, 100vw" formats={["avif", "webp"]} alt="" loading="lazy" class="gallery__img" />
+  <span class="gallery__label">
+    <span class="gallery__kicker serif">Campus Gallery</span>
+    <span class="gallery__title">{lang === "ko" ? "캠퍼스 갤러리" : "Campus gallery"}</span>
+  </span>
+  <span class="gallery__panel">
+    <span class="gallery__panel-text">{lang === "ko" ? "봄 · 여름 · 가을 · 겨울, 같은 자리에서 본 본관" : "The Main Hall in four seasons, from one spot"}</span>
+    <span class="gallery__btn">
+      {lang === "ko" ? "사계절 본관 보러가기" : "See all four seasons"}
+      <Icon name="arrow-right" size={16} />
+    </span>
+  </span>
+</a>
+
+<style>
+  .gallery {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    color: #fff;
+    min-height: 300px;
+    background: var(--navy-900);
+  }
+  .gallery :global(picture),
+  .gallery__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .gallery__img {
+    object-fit: cover;
+    object-position: 68% 50%;
+    transition: transform 1s var(--ease);
+  }
+  .gallery:hover .gallery__img,
+  .gallery:focus-visible .gallery__img {
+    transform: scale(1.08);
+  }
+  .gallery__label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 22px 22px 40px;
+    background: linear-gradient(180deg, rgba(5, 15, 38, 0.7), transparent);
+    display: grid;
+  }
+  .gallery__kicker {
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gold-400);
+  }
+  .gallery__title {
+    font-size: 1.375rem;
+    font-weight: 800;
+  }
+  .gallery__panel {
+    position: absolute;
+    inset: auto 0 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+    background: rgba(5, 15, 38, 0.74);
+    transform: translateY(calc(100% - 64px));
+    transition: transform 0.5s var(--ease);
+  }
+  .gallery__panel-text {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .gallery:hover .gallery__panel,
+  .gallery:focus-visible .gallery__panel {
+    transform: none;
+  }
+  .gallery:hover .gallery__panel-text,
+  .gallery:focus-visible .gallery__panel-text {
+    opacity: 1;
+    transition-delay: 0.15s;
+  }
+  .gallery__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border: 2px solid #fff;
+    font-weight: 700;
+    font-size: 0.875rem;
+    transition:
+      background-color 0.25s,
+      color 0.25s;
+  }
+  .gallery:hover .gallery__btn {
+    background: #fff;
+    color: var(--navy-900);
+  }
+  @media (hover: none) {
+    .gallery__panel {
+      transform: translateY(calc(100% - 80px));
+      justify-content: flex-start;
+    }
+    .gallery__panel-text {
+      display: none;
+    }
+  }
+</style>

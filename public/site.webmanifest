@@ -1,0 +1,11 @@
+{
+  "name": "한국대학교 Hanguk University",
+  "short_name": "한국대학교",
+  "icons": [
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "theme_color": "#0a1b3f",
+  "background_color": "#f5f4f0",
+  "display": "browser"
+}

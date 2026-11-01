@@ -1,0 +1,162 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import night from "../assets/photos/season-night.jpg";
+import { president, stats } from "../data/site";
+import { t, type Lang } from "../i18n";
+
+/** 대학소개 — the President's line and the university in numbers (counters run once in view). */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const fmt = (v: number, d = 0) => v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+---
+
+<section class="about section" id="about" aria-labelledby="about-title">
+  <div class="about__bg" aria-hidden="true">
+    <Picture src={night} widths={[768, 1280, 2048]} sizes="100vw" formats={["avif", "webp"]} alt="" loading="lazy" class="about__img" />
+  </div>
+  <div class="container about__in">
+    <div class="about__words reveal">
+      <p class="eyebrow about__eyebrow">From the President</p>
+      <h2 class="section-title about__title" id="about-title">{lang === "ko" ? "일흔 해의 배움, 다음 일흔 해의 약속" : "Seventy years of learning, and the next seventy"}</h2>
+      <blockquote class="about__quote">
+        <Icon name="quote" size={34} class="about__mark" />
+        <p>{t(president.quote, lang)}</p>
+        <footer class="about__sign">{t(president.name, lang)}</footer>
+      </blockquote>
+    </div>
+    <dl class="stats">
+      {
+        stats.map((s) => (
+          <div class="stat reveal">
+            <dt class="stat__label">{t(s.label, lang)}</dt>
+            <dd class="stat__value">
+              <span class="stat__num tabular" data-count={s.value} data-decimals={s.decimals ?? 0}>
+                {fmt(s.value, s.decimals)}
+              </span>
+              <span class="stat__suffix">{t(s.suffix, lang)}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .about {
+    position: relative;
+    color: #fff;
+    background: var(--navy-900);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .about__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .about__bg :global(picture),
+  .about__img {
+    width: 100%;
+    height: 100%;
+  }
+  .about__img {
+    object-fit: cover;
+    object-position: 60% 30%;
+    opacity: 0.3;
+  }
+  .about__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, rgba(10, 27, 63, 0.97) 0%, rgba(10, 27, 63, 0.9) 45%, rgba(10, 27, 63, 0.7) 100%);
+  }
+  .about__in {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  .about__eyebrow {
+    color: var(--gold-400);
+  }
+  .about__title {
+    color: #fff;
+  }
+  .about__quote {
+    position: relative;
+    margin-top: 28px;
+    padding-left: 2px;
+  }
+  .about__quote :global(.about__mark) {
+    color: var(--gold-400);
+    margin-bottom: 12px;
+  }
+  .about__quote p {
+    font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .about__sign {
+    margin-top: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #fff;
+  }
+  .about__sign::before {
+    content: "— ";
+    color: var(--gold-400);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 26px 26px 24px;
+    background: rgba(10, 27, 63, 0.82);
+    backdrop-filter: blur(6px);
+  }
+  .stat__value {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .stat__num {
+    font-family: var(--font-serif-stack);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-size: clamp(2.4rem, 1.6rem + 2vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+  }
+  .stat__suffix {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--gold-400);
+  }
+  .stat__label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  @media (max-width: 900px) {
+    .about__in {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 420px) {
+    .stat {
+      padding: 20px 16px;
+    }
+  }
+</style>

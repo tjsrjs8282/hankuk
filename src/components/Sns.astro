@@ -1,0 +1,114 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import festival from "../assets/photos/festival.jpg";
+import { sns } from "../data/site";
+import { ui, t, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const names = { instagram: "Instagram", youtube: "YouTube", kakaotalk: "KakaoTalk", naver: "Naver Blog" };
+---
+
+<section class="tile t-sns sns" aria-labelledby="sns-title">
+  <div class="sns__head">
+    <h2 id="sns-title" class="sns__title">SNS NEWS</h2>
+    <time class="sns__date tabular" datetime={sns.date}>{sns.date.replaceAll("-", ".")}</time>
+  </div>
+  <div class="sns__media">
+    <Picture src={festival} widths={[360, 640, 960]} sizes="(min-width: 1100px) 25vw, (min-width: 681px) 50vw, 100vw" formats={["avif", "webp"]} alt={lang === "ko" ? "은행나무길 무대 앞에 모인 가을 축제 관객들" : "Festival crowd in front of the stage on Ginkgo Road"} loading="lazy" class="sns__img" />
+  </div>
+  <p class="sns__name">{t(sns.title, lang)}</p>
+  <p class="sns__text">{t(sns.text, lang)}</p>
+  <ul class="sns__channels">
+    {
+      sns.channels.map((c) => (
+        <li>
+          <button type="button" class="sns__ch" data-demo aria-label={names[c]} title={t(ui.demo, lang)}>
+            <Icon name={c} size={19} />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .sns {
+    background: #fff;
+    padding: 22px 22px 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sns__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .sns__title {
+    font-size: 1.375rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--navy-900);
+  }
+  .sns__date {
+    font-size: 0.8125rem;
+    color: var(--ink-500);
+  }
+  .sns__media {
+    margin-top: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+  .sns__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease);
+  }
+  .sns:hover .sns__img {
+    transform: scale(1.06);
+  }
+  .sns__name {
+    margin-top: 12px;
+    font-weight: 800;
+    color: var(--navy-900);
+  }
+  .sns__text {
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--ink-500);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .sns__channels {
+    margin-top: auto;
+    padding-top: 12px;
+    display: flex;
+    gap: 6px;
+  }
+  .sns__ch {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--navy-800);
+    transition:
+      transform 0.25s var(--ease),
+      background-color 0.25s,
+      color 0.25s;
+  }
+  .sns__ch:hover {
+    transform: translateY(-3px);
+    background: var(--navy-900);
+    color: #fff;
+  }
+</style>

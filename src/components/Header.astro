@@ -1,0 +1,349 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import TargetLink from "./TargetLink.astro";
+import FontSize from "./FontSize.astro";
+import { audiences, nav } from "../data/site";
+import { ui, t, type Lang } from "../i18n";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other = withBase(lang === "ko" ? "/en/" : "/");
+---
+
+<header class="site-header" data-header>
+  <!-- 2020 top bar: 대학교 · 입학안내 · 대학원 | 사이트맵 · ENGLISH · 찾아오시는길 · 글자크기 -->
+  <div class="util">
+    <div class="container util__in">
+      <nav class="util__aud" aria-label={t(ui.utilNav, lang)}>
+        <ul>
+          {
+            audiences.map((a, i) => (
+              <li>
+                <TargetLink target={a.target} lang={lang} class="util__tab" aria-current={i === 0 ? "page" : undefined}>
+                  {t(a.label, lang)}
+                </TargetLink>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="util__right">
+        <button type="button" class="util__link" data-open-sitemap aria-haspopup="dialog">{t(ui.sitemap, lang)}</button>
+        <a class="util__link" href={other} hreflang={lang === "ko" ? "en" : "ko"} lang={lang === "ko" ? "en" : "ko"} title={t(ui.langSwitchLabel, lang)}>
+          <Icon name="globe" size={15} />
+          {t(ui.langSwitch, lang)}
+        </a>
+        <a class="util__link" href="#directions">{t(ui.directions, lang)}</a>
+        <FontSize lang={lang} />
+      </div>
+    </div>
+  </div>
+
+  <div class="bar" data-bar>
+    <div class="container bar__in">
+      <Logo lang={lang} />
+      <nav class="gnb" aria-label={t(ui.mainNav, lang)} data-gnb>
+        <ul class="gnb__list">
+          {
+            nav.map((item) => (
+              <li>
+                <a class="gnb__link" href={item.href}>
+                  {t(item.label, lang)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mega">
+          <div class="mega__in">
+            <p class="mega__hello">
+              <span class="serif">Hanguk University</span>
+              {lang === "ko" ? "궁금한 곳으로 바로 가세요." : "Go straight to what you need."}
+            </p>
+            <div class="mega__cols">
+              {
+                nav.map((item) => (
+                  <div class="mega__col">
+                    <p class="mega__head">{t(item.label, lang)}</p>
+                    <ul>
+                      {item.children.map((c) => (
+                        <li>
+                          <TargetLink target={c.target} lang={lang} class="mega__link">
+                            {t(c.label, lang)}
+                          </TargetLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="bar__actions">
+        <button type="button" class="icon-btn bar__login" data-demo aria-label={t(ui.login, lang)}>
+          <Icon name="user" />
+        </button>
+        <button type="button" class="icon-btn bar__menu" data-open-sitemap aria-haspopup="dialog" aria-label={t(ui.menu, lang)}>
+          <Icon name="menu" />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 60;
+    color: #fff;
+  }
+
+  /* ── utility bar ── */
+  .util {
+    background: rgba(5, 15, 38, 0.55);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.8125rem;
+  }
+  .util__in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+  }
+  .util__aud ul {
+    display: flex;
+  }
+  .util__tab {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 18px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.78);
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  .util__tab:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .util__tab[aria-current="page"] {
+    background: var(--blue-600);
+    color: #fff;
+  }
+  .util__right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .util__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.86);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .util__link:hover {
+    color: var(--gold-400);
+  }
+
+  /* ── main bar ── */
+  .bar {
+    position: relative;
+    transition:
+      background-color 0.35s var(--ease),
+      color 0.35s var(--ease),
+      box-shadow 0.35s var(--ease);
+  }
+  .bar__in {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: var(--header-h);
+  }
+  .bar__actions {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+  }
+  .bar__actions .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .gnb {
+    margin-left: auto;
+    height: 100%;
+  }
+  .gnb__list {
+    display: flex;
+    height: 100%;
+  }
+  .gnb__list li {
+    display: flex;
+  }
+  .gnb__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 clamp(14px, 1.6vw, 24px);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .gnb__link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: 18px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--gold-400);
+    transition:
+      left 0.3s var(--ease),
+      right 0.3s var(--ease);
+  }
+  .gnb__link:hover::after,
+  .gnb__link:focus-visible::after {
+    left: clamp(14px, 1.6vw, 24px);
+    right: clamp(14px, 1.6vw, 24px);
+  }
+
+  /* mega menu — the whole sitemap drops under the bar on hover / keyboard focus */
+  .mega {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    color: var(--ink-900);
+    background: #fff;
+    border-top: 1px solid var(--line);
+    box-shadow: 0 30px 50px -30px rgba(5, 15, 38, 0.45);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.25s var(--ease),
+      transform 0.25s var(--ease),
+      visibility 0s 0.25s;
+  }
+  .gnb:hover .mega,
+  .gnb:focus-within .mega {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.25s var(--ease),
+      transform 0.25s var(--ease);
+  }
+  .gnb.is-closed .mega {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .mega__in {
+    max-width: calc(var(--max) + var(--gutter) * 2);
+    margin: 0 auto;
+    padding: 32px var(--gutter) 40px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 40px;
+  }
+  .mega__hello {
+    font-size: 0.9375rem;
+    color: var(--ink-500);
+    border-right: 1px solid var(--line);
+    padding-right: 24px;
+  }
+  .mega__hello .serif {
+    display: block;
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--navy-900);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .mega__cols {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+  .mega__head {
+    font-weight: 800;
+    color: var(--navy-900);
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+    border-bottom: 2px solid var(--navy-900);
+  }
+  .mega__link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 7px 0;
+    font-size: 0.9375rem;
+    color: var(--ink-700);
+    transition:
+      color 0.2s,
+      transform 0.2s var(--ease);
+  }
+  .mega__link:hover {
+    color: var(--blue-600);
+    transform: translateX(3px);
+  }
+
+  /* Scrolled: the bar detaches and turns solid. */
+  :global(html.is-scrolled) .bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: var(--navy-900);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 1px 0 var(--line), 0 10px 30px -18px rgba(5, 15, 38, 0.35);
+    animation: bar-in 0.45s var(--ease);
+  }
+  :global(html.is-scrolled) .bar__actions .icon-btn:hover {
+    background: var(--blue-50);
+  }
+  @keyframes bar-in {
+    from {
+      transform: translateY(-100%);
+    }
+  }
+
+  @media (max-width: 1080px) {
+    .gnb,
+    .util__aud,
+    .util__link:not([hreflang]) {
+      display: none;
+    }
+    .util :global(.fontsize) {
+      display: none;
+    }
+    .util__in {
+      justify-content: flex-end;
+      min-height: 34px;
+    }
+    .bar__in {
+      height: 64px;
+    }
+  }
+  @media (min-width: 1081px) {
+    .bar__menu {
+      display: inline-grid;
+    }
+  }
+</style>

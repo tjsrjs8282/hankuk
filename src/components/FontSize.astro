@@ -1,0 +1,64 @@
+---
+import Icon from "./Icon.astro";
+import { ui, t, type Lang } from "../i18n";
+
+/** 2020's "글자크기 + −" — now it works: 90–130 %, remembered, announced. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<div class="fontsize" role="group" aria-label={t(ui.fontSize, lang)} data-fontsize>
+  <span class="fontsize__label" aria-hidden="true">{t(ui.fontSize, lang)}</span>
+  <button type="button" class="fontsize__btn" data-font-step="-1" aria-label={t(ui.fontSmaller, lang)}>
+    <Icon name="minus" size={14} />
+  </button>
+  <button type="button" class="fontsize__value tabular" data-font-reset title={t(ui.fontReset, lang)}>
+    <span data-font-value>100%</span><span class="sr-only"> · {t(ui.fontReset, lang)}</span>
+  </button>
+  <button type="button" class="fontsize__btn" data-font-step="1" aria-label={t(ui.fontLarger, lang)}>
+    <Icon name="plus" size={14} />
+  </button>
+</div>
+
+<style>
+  .fontsize {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    padding-left: 14px;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .fontsize__label {
+    margin-right: 4px;
+    color: rgba(255, 255, 255, 0.86);
+  }
+  .fontsize__btn {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--navy-900);
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  .fontsize__btn:hover {
+    background: var(--gold-400);
+  }
+  .fontsize__btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .fontsize__value {
+    min-width: 44px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+  }
+</style>

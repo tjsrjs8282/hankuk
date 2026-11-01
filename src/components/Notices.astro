@@ -1,0 +1,166 @@
+---
+import Icon from "./Icon.astro";
+import { notices, noticeTabs } from "../data/site";
+import { ui, t, type Lang } from "../i18n";
+
+/** 2020 공지사항 (one list) → tabs: 공지 · 학사 · 입학 · 보도. Each item opens an AI summary. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const fmt = (iso: string) => iso.slice(5).replace("-", ".");
+---
+
+<section class="tile t-notice notice" id="notices" aria-labelledby="notice-title">
+  <div class="notice__head">
+    <h2 id="notice-title" class="notice__title">{lang === "ko" ? "공지사항" : "Notices"}</h2>
+    <span class="notice__ai"><Icon name="sparkle" size={14} />{lang === "ko" ? "AI 요약" : "AI summary"}</span>
+  </div>
+  <div class="tabs" role="tablist" aria-labelledby="notice-title" data-tabs>
+    {
+      noticeTabs.map((tab, i) => (
+        <button
+          type="button"
+          role="tab"
+          class="tabs__tab"
+          id={`tab-${tab.id}`}
+          aria-controls={`panel-${tab.id}`}
+          aria-selected={i === 0 ? "true" : "false"}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          {t(tab.label, lang)}
+        </button>
+      ))
+    }
+  </div>
+  {
+    noticeTabs.map((tab, i) => (
+      <div class="notice__panel" role="tabpanel" id={`panel-${tab.id}`} aria-labelledby={`tab-${tab.id}`} hidden={i !== 0}>
+        <ul>
+          {notices
+            .filter((n) => n.cat === tab.id)
+            .map((n) => (
+              <li>
+                <button type="button" class="notice__item" data-ask={t(n.title, lang)} data-date={n.date} aria-haspopup="dialog">
+                  <span class="notice__text">
+                    <span class="notice__new" data-new hidden>
+                      {t(ui.newBadge, lang)}
+                    </span>
+                    {t(n.title, lang)}
+                  </span>
+                  <time class="notice__date tabular" datetime={n.date}>
+                    {fmt(n.date)}
+                  </time>
+                </button>
+              </li>
+            ))}
+        </ul>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .notice {
+    background: var(--blue-600);
+    color: #fff;
+    padding: 24px 22px 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .notice__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .notice__title {
+    font-size: 1.375rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .notice__ai {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin: 14px 0 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  }
+  .tabs__tab {
+    position: relative;
+    padding: 8px 8px 10px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.86);
+    transition: color 0.2s;
+  }
+  .tabs__tab::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: -1px;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+    background: #fff;
+    transform: scaleX(0);
+    transition: transform 0.3s var(--ease);
+  }
+  .tabs__tab[aria-selected="true"] {
+    color: #fff;
+  }
+  .tabs__tab[aria-selected="true"]::after {
+    transform: scaleX(1);
+  }
+  .tabs__tab:hover {
+    color: #fff;
+  }
+  .notice__item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 2px;
+    text-align: left;
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .notice__panel li:last-child .notice__item {
+    border-bottom: 0;
+  }
+  .notice__text {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .notice__item:hover .notice__text {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .notice__new {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--gold-400);
+    color: var(--navy-950);
+    font-size: 0.6875rem;
+    font-weight: 800;
+    vertical-align: 1px;
+  }
+  .notice__date {
+    flex: none;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+</style>

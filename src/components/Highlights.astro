@@ -1,0 +1,109 @@
+---
+import Stories from "./Stories.astro";
+import LibraryApp from "./LibraryApp.astro";
+import HotLink from "./HotLink.astro";
+import Notices from "./Notices.astro";
+import Sns from "./Sns.astro";
+import GalleryTile from "./GalleryTile.astro";
+import FilmTile from "./FilmTile.astro";
+import Admission from "./Admission.astro";
+import type { Lang } from "../i18n";
+
+/**
+ * The 2020 page's eight-card grid, same order and proportions (75/25 · 25×4 · 25/75),
+ * every card rebuilt. It still overlaps the bottom of the hero, as the original did.
+ */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<div class="highlights" id="main" tabindex="-1">
+  <div class="container">
+    <div class="hl-grid">
+      <Stories lang={lang} />
+      <LibraryApp lang={lang} />
+      <HotLink lang={lang} />
+      <Notices lang={lang} />
+      <Sns lang={lang} />
+      <GalleryTile lang={lang} />
+      <FilmTile lang={lang} />
+      <Admission lang={lang} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .highlights {
+    position: relative;
+    z-index: 2;
+    margin-top: -130px;
+    outline: none;
+  }
+  .hl-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    grid-template-areas:
+      "story story story app"
+      "hot notice sns gallery"
+      "film admit admit admit";
+  }
+  .hl-grid > :global(.tile) {
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-2);
+  }
+  .hl-grid > :global(.t-story) {
+    grid-area: story;
+  }
+  .hl-grid > :global(.t-app) {
+    grid-area: app;
+  }
+  .hl-grid > :global(.t-hot) {
+    grid-area: hot;
+  }
+  .hl-grid > :global(.t-notice) {
+    grid-area: notice;
+  }
+  .hl-grid > :global(.t-sns) {
+    grid-area: sns;
+  }
+  .hl-grid > :global(.t-gallery) {
+    grid-area: gallery;
+  }
+  .hl-grid > :global(.t-film) {
+    grid-area: film;
+  }
+  .hl-grid > :global(.t-admit) {
+    grid-area: admit;
+  }
+  @media (max-width: 1180px) {
+    .hl-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "story story"
+        "notice hot"
+        "app sns"
+        "app gallery"
+        "film film"
+        "admit admit";
+    }
+    .hl-grid > :global(.t-film) {
+      min-height: 320px;
+    }
+  }
+  @media (max-width: 680px) {
+    .highlights {
+      margin-top: -72px;
+    }
+    .hl-grid {
+      gap: 12px;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "story" "notice" "hot" "admit" "app" "sns" "gallery" "film";
+    }
+    .hl-grid > :global(.tile) {
+      border-radius: var(--radius);
+    }
+  }
+</style>

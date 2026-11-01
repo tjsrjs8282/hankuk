@@ -1,0 +1,338 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import heroImg from "../assets/photos/hero.jpg";
+import { brand, quick } from "../data/site";
+import { ui, t, type Lang } from "../i18n";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const [line1, line2] = t(brand.headline, lang).split("\n");
+---
+
+<section class="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero__media">
+    <Picture
+      src={heroImg}
+      widths={[640, 960, 1440, 1920, 2688]}
+      sizes="100vw"
+      formats={["avif", "webp"]}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      class="hero__img"
+    />
+    <video
+      class="hero__video"
+      muted
+      playsinline
+      loop
+      preload="none"
+      aria-hidden="true"
+      tabindex="-1"
+      data-hero-video
+      data-webm={withBase("media/hero.webm")}
+      data-mp4={withBase("media/hero.mp4")}
+      data-mobile={withBase("media/hero-480.mp4")}></video>
+    <div class="hero__shade"></div>
+  </div>
+
+  <div class="container hero__in">
+    <div class="hero__copy">
+      <p class="hero__eyebrow" data-hero-line style="--i:0">
+        <span class="serif">Since 1956</span>
+        <span class="hero__dot" aria-hidden="true"></span>
+        {lang === "ko" ? "개교 70주년" : "70th anniversary"}
+      </p>
+      <p class="hero__tagline" data-hero-line style="--i:1">{t(brand.tagline, lang)}</p>
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__line" data-hero-line style="--i:2">{line1}</span>
+        <span class="hero__line hero__line--gold" data-hero-line style="--i:3">{line2}</span>
+      </h1>
+      <p class="hero__intro" data-hero-line style="--i:4">{t(brand.intro, lang)}</p>
+      <div class="hero__ctas" data-hero-line style="--i:5">
+        <a class="btn btn-light" href="#admission">
+          {lang === "ko" ? "2027학년도 모집 안내" : "2027 admissions"}
+          <Icon name="arrow-right" class="arrow" />
+        </a>
+        <button type="button" class="btn btn-ghost" data-open-film aria-haspopup="dialog">
+          <Icon name="play" />
+          {lang === "ko" ? "홍보 영상 보기" : "Watch the film"}
+        </button>
+      </div>
+    </div>
+
+    <!-- 2020's four circles: 증명서발급 · 장학제도 · 입학설명회 · 입학절차안내 -->
+    <ul class="quick" aria-label={lang === "ko" ? "자주 찾는 메뉴" : "Quick links"}>
+      {
+        quick.map((q) => (
+          <li data-hero-line style={`--i:${6 + quick.indexOf(q)}`}>
+            <button type="button" class="quick__btn" data-ask={t(q.ask, lang)} aria-haspopup="dialog">
+              <span class="quick__icon">
+                <Icon name={q.icon as "certificate"} size={26} />
+              </span>
+              <span class="quick__label">{t(q.label, lang)}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <button type="button" class="hero__toggle" data-hero-toggle aria-pressed="false" data-label-pause={t(ui.videoPause, lang)} data-label-play={t(ui.videoPlay, lang)} aria-label={t(ui.videoPause, lang)} hidden>
+    <Icon name="pause" size={16} class="i-pause" />
+    <Icon name="play" size={16} class="i-play" />
+  </button>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: max(660px, 100svh);
+    display: flex;
+    color: #fff;
+    background: var(--navy-950);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero__media,
+  .hero__media :global(picture),
+  .hero__img,
+  .hero__video,
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero__media {
+    z-index: -1;
+  }
+  /* Intro: pure CSS, so it plays on first paint instead of waiting for GSAP. */
+  :global(.js-motion) [data-hero-line] {
+    animation: hero-rise 1s var(--ease) both;
+    animation-delay: calc(var(--i, 0) * 85ms + 120ms);
+  }
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+  .hero__img,
+  .hero__video {
+    object-fit: cover;
+    object-position: 62% 50%;
+  }
+  .hero__video {
+    opacity: 0;
+    transition: opacity 1.4s var(--ease);
+  }
+  .hero__video:global(.is-playing) {
+    opacity: 1;
+  }
+  .hero__shade {
+    background:
+      linear-gradient(90deg, rgba(5, 15, 38, 0.86) 0%, rgba(5, 15, 38, 0.62) 34%, rgba(5, 15, 38, 0.12) 68%, rgba(5, 15, 38, 0) 100%),
+      linear-gradient(0deg, rgba(5, 15, 38, 0.75) 0%, rgba(5, 15, 38, 0) 38%),
+      linear-gradient(180deg, rgba(5, 15, 38, 0.55) 0%, rgba(5, 15, 38, 0) 22%);
+  }
+
+  .hero__in {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 40px;
+    /* room for the header above and the overlapping highlight grid below */
+    padding-top: calc(40px + var(--header-h) + 40px);
+    padding-bottom: calc(150px + 4vh);
+  }
+  .hero__copy {
+    max-width: 640px;
+  }
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.02em;
+  }
+  .hero__eyebrow .serif {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--gold-400);
+  }
+  .hero__dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.6;
+  }
+  .hero__tagline {
+    margin-top: 22px;
+    font-size: clamp(1.25rem, 0.9rem + 1.2vw, 1.85rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .hero__title {
+    margin-top: 8px;
+    font-size: clamp(2.6rem, 1.4rem + 4.6vw, 5.25rem);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+  }
+  :global(html[lang="en"]) .hero__title {
+    letter-spacing: -0.03em;
+    font-size: clamp(2.3rem, 1.2rem + 4vw, 4.25rem);
+  }
+  .hero__line {
+    display: block;
+  }
+  .hero__line--gold {
+    color: var(--gold-400);
+  }
+  .hero__intro {
+    margin-top: 22px;
+    max-width: 34em;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .hero__ctas {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* quick menu */
+  .quick {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 560px;
+  }
+  .quick__btn {
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    padding: 16px 6px 14px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    transition:
+      background-color 0.3s var(--ease),
+      transform 0.3s var(--ease),
+      border-color 0.3s;
+  }
+  .quick__btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-3px);
+  }
+  .quick__icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    transition:
+      background-color 0.3s,
+      color 0.3s,
+      border-color 0.3s;
+  }
+  .quick__btn:hover .quick__icon {
+    background: var(--gold-400);
+    border-color: var(--gold-400);
+    color: var(--navy-950);
+  }
+  .quick__label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .hero__toggle {
+    position: absolute;
+    right: var(--gutter);
+    bottom: calc(150px + 4vh);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(5, 15, 38, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(6px);
+  }
+  .hero__toggle .i-play {
+    display: none;
+  }
+  .hero__toggle[aria-pressed="true"] .i-play {
+    display: block;
+  }
+  .hero__toggle[aria-pressed="true"] .i-pause {
+    display: none;
+  }
+
+  @media (min-width: 1081px) {
+    .hero__in {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .quick {
+      flex: 0 0 auto;
+      width: 460px;
+      margin-bottom: 6px;
+    }
+    .hero__toggle {
+      bottom: auto;
+      top: calc(40px + var(--header-h) + 24px);
+    }
+  }
+  @media (max-width: 640px) {
+    .hero__shade {
+      background:
+        linear-gradient(0deg, rgba(5, 15, 38, 0.92) 0%, rgba(5, 15, 38, 0.55) 55%, rgba(5, 15, 38, 0.25) 100%),
+        linear-gradient(180deg, rgba(5, 15, 38, 0.6) 0%, rgba(5, 15, 38, 0) 30%);
+    }
+    .hero__img,
+    .hero__video {
+      object-position: 66% 50%;
+    }
+    .quick {
+      gap: 8px;
+    }
+    .quick__btn {
+      padding: 12px 2px 10px;
+    }
+    .quick__icon {
+      width: 44px;
+      height: 44px;
+    }
+    .quick__label {
+      font-size: 0.75rem;
+    }
+    .hero__in {
+      padding-bottom: 120px;
+      gap: 28px;
+    }
+    .hero__toggle {
+      top: calc(34px + 64px + 14px);
+      bottom: auto;
+    }
+  }
+</style>

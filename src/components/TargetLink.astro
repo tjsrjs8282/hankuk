@@ -1,0 +1,29 @@
+---
+import type { Target } from "../data/site";
+import { t, type Lang } from "../i18n";
+
+/**
+ * Renders a content link: an in-page anchor, or a button that opens the AI 도우미
+ * with a question (for pages a one-page remaster doesn't have).
+ */
+interface Props {
+  target: Target;
+  lang: Lang;
+  class?: string;
+  [attr: string]: unknown;
+}
+
+const { target, lang, class: className, ...rest } = Astro.props;
+---
+
+{
+  "href" in target ? (
+    <a class={className} href={target.href} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type="button" class={className} data-ask={t(target.ask, lang)} aria-haspopup="dialog" {...rest}>
+      <slot />
+    </button>
+  )
+}

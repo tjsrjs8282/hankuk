@@ -1,0 +1,61 @@
+---
+import Mark from "../assets/brand/mark.svg";
+import { withBase } from "../lib/paths";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  /** Omit to inherit the text colour. */
+  tone?: "dark" | "light";
+  href?: string;
+}
+
+const { lang, tone, href = withBase(lang === "en" ? "/en/" : "/") } = Astro.props;
+---
+
+<a class:list={["logo", tone && `logo--${tone}`]} href={href}>
+  <Mark class="logo__mark" width="40" height="40" />
+  <span class="logo__type">
+    <span class="logo__ko">한국대학교</span>
+    <span class="logo__en serif">HANGUK UNIVERSITY</span>
+    <span class="sr-only">{lang === "ko" ? " 홈" : " home"}</span>
+  </span>
+</a>
+
+<style>
+  /* Follows the surrounding text colour: white over the hero, navy once the bar turns solid. */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: inherit;
+    flex: none;
+  }
+  .logo--dark {
+    color: var(--navy-900);
+  }
+  .logo--light {
+    color: #fff;
+  }
+  .logo__mark {
+    width: 40px;
+    height: 40px;
+    flex: none;
+  }
+  .logo__type {
+    display: grid;
+    line-height: 1.1;
+  }
+  .logo__ko {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+  .logo__en {
+    margin-top: 3px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    opacity: 0.72;
+  }
+</style>

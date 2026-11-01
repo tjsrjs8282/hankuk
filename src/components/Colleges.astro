@@ -1,0 +1,220 @@
+---
+import Icon from "./Icon.astro";
+import { colleges } from "../data/site";
+import { t, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<section class="section colleges" id="colleges" aria-labelledby="colleges-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Colleges &amp; Programs</p>
+        <h2 class="section-title" id="colleges-title">{lang === "ko" ? "8개 단과대학, 32개 학과" : "8 colleges, 32 programs"}</h2>
+        <p class="section-lead">{lang === "ko" ? "2027학년도에는 AI융합대학이 처음 문을 엽니다. 카드를 눌러 학과를 펼쳐 보세요." : "The College of AI Convergence opens in 2027. Open a card to see its programs."}</p>
+      </div>
+    </div>
+    <ul class="col-grid">
+      {
+        colleges.map((c) => (
+          <li class="reveal">
+            <details class:list={["col", { "col--new": c.isNew }]}>
+              <summary class="col__sum">
+                <span class="col__icon">
+                  <Icon name={c.icon as "book"} size={26} />
+                </span>
+                <span class="col__names">
+                  <span class="col__name">
+                    {lang === "ko" ? c.name.ko : c.en}
+                    {c.isNew && <span class="col__new">NEW 2027</span>}
+                  </span>
+                  <span class="col__en serif">{lang === "ko" ? c.en : `${c.majors.length} programs`}</span>
+                </span>
+                <span class="col__toggle" aria-hidden="true">
+                  <Icon name="plus" size={18} />
+                </span>
+              </summary>
+              <ul class="col__majors">
+                {c.majors.map((m) => (
+                  <li>{t(m, lang)}</li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .colleges {
+    background: #fff;
+  }
+  .col-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+  .col {
+    border-radius: var(--radius-l);
+    border: 1px solid var(--line);
+    background: var(--paper);
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s var(--ease),
+      transform 0.3s var(--ease),
+      background-color 0.3s;
+  }
+  .col:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-3px);
+    background: #fff;
+  }
+  .col[open] {
+    background: #fff;
+    border-color: var(--navy-900);
+    box-shadow: var(--shadow-2);
+  }
+  .col--new {
+    background: linear-gradient(160deg, #0f2a66 0%, var(--navy-900) 100%);
+    border-color: transparent;
+    color: #fff;
+  }
+  .col--new:hover,
+  .col--new[open] {
+    background: linear-gradient(160deg, #143580 0%, var(--navy-900) 100%);
+    border-color: transparent;
+  }
+  .col__sum {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 20px;
+    cursor: pointer;
+    border-radius: var(--radius-l);
+  }
+  .col__sum::-webkit-details-marker {
+    display: none;
+  }
+  .col__icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #fff;
+    color: var(--blue-600);
+    box-shadow: var(--shadow-1);
+  }
+  .col--new .col__icon {
+    background: var(--gold-400);
+    color: var(--navy-950);
+  }
+  .col__names {
+    display: grid;
+    min-width: 0;
+  }
+  .col__name {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--navy-900);
+  }
+  .col--new .col__name {
+    color: #fff;
+  }
+  .col__new {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--coral-600);
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    vertical-align: 2px;
+  }
+  .col__en {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--ink-500);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .col--new .col__en {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .col__toggle {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-500);
+    transition: transform 0.35s var(--ease);
+  }
+  .col--new .col__toggle {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+  .col[open] .col__toggle {
+    transform: rotate(45deg);
+  }
+  .col__majors {
+    padding: 0 20px 22px 86px;
+    display: grid;
+    gap: 6px;
+  }
+  .col__majors li {
+    position: relative;
+    font-size: 0.9375rem;
+    color: var(--ink-700);
+  }
+  .col--new .col__majors li {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .col__majors li::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 0.72em;
+    width: 6px;
+    height: 1.5px;
+    background: var(--blue-500);
+  }
+  .col--new .col__majors li::before {
+    background: var(--gold-400);
+  }
+  .col[open] .col__majors {
+    animation: majors-in 0.4s var(--ease);
+  }
+  @keyframes majors-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  @media (max-width: 1180px) {
+    .col-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 600px) {
+    .col-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+  }
+</style>

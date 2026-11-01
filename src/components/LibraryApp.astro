@@ -1,0 +1,221 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import bg from "../assets/photos/library-portrait.jpg";
+import { libraryApp } from "../data/site";
+import { t, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+// A deterministic 21×21 QR-like pattern (decorative — not a real code).
+const N = 21;
+const finder = (x: number, y: number) => {
+  const inBox = (ox: number, oy: number) => x >= ox && x < ox + 7 && y >= oy && y < oy + 7;
+  for (const [ox, oy] of [[0, 0], [N - 7, 0], [0, N - 7]]) {
+    if (inBox(ox, oy)) {
+      const dx = x - ox, dy = y - oy;
+      return dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4) ? 1 : 0;
+    }
+  }
+  return -1;
+};
+let seed = 1956;
+const rand = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+const cells: string[] = [];
+for (let y = 0; y < N; y++)
+  for (let x = 0; x < N; x++) {
+    const f = finder(x, y);
+    if (f === 1 || (f === -1 && rand() > 0.52)) cells.push(`M${x} ${y}h1v1h-1z`);
+  }
+const qr = cells.join("");
+---
+
+<section class="tile t-app app" id="support" aria-labelledby="app-title">
+  <Picture src={bg} widths={[400, 700, 1000]} sizes="(min-width: 1100px) 25vw, (min-width: 681px) 50vw, 100vw" formats={["avif", "webp"]} alt="" loading="lazy" class="app__bg" />
+  <div class="app__shade"></div>
+  <div class="app__in">
+    <p class="app__kicker serif">Smart Library</p>
+    <h2 id="app-title" class="app__title pre-line">{t(libraryApp.title, lang)}</h2>
+    <p class="app__text">{t(libraryApp.text, lang)}</p>
+
+    <div class="phone" aria-hidden="true">
+      <div class="phone__notch"></div>
+      <div class="phone__card">
+        <div class="phone__top">
+          <span>{lang === "ko" ? "모바일 열람증" : "Mobile library card"}</span>
+          <span class="phone__live"><i></i> LIVE</span>
+        </div>
+        <svg class="phone__qr" viewBox={`-1 -1 ${N + 2} ${N + 2}`} shape-rendering="crispEdges"><rect x="-1" y="-1" width={N + 2} height={N + 2} fill="#fff" /><path d={qr} fill="#0a1b3f" /></svg>
+        <div class="phone__seats">
+          <div class="phone__row">
+            <span>{lang === "ko" ? "잔여 좌석" : "Free seats"}</span>
+            <b class="tabular"><span data-seats-free>312</span> / {libraryApp.seats.total.toLocaleString("en-US")}</b>
+          </div>
+          <div class="phone__bar"><i data-seats-bar style="--used: 76%"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="app__more" data-ask={lang === "ko" ? "도서관 운영시간은?" : "What are the library hours?"} aria-haspopup="dialog">
+      {lang === "ko" ? "자세히 보기" : "Learn more"}
+      <Icon name="arrow-right" size={16} />
+    </button>
+  </div>
+</section>
+
+<style>
+  .app {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    min-height: 480px;
+    background: var(--navy-900);
+  }
+  .app :global(picture),
+  .app__bg,
+  .app__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .app__bg {
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+  .app:hover .app__bg {
+    transform: scale(1.05);
+  }
+  .app__shade {
+    background: linear-gradient(180deg, rgba(5, 15, 38, 0.88) 0%, rgba(5, 15, 38, 0.55) 45%, rgba(5, 15, 38, 0.92) 100%);
+  }
+  .app__in {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 28px 26px;
+  }
+  .app__kicker {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--gold-400);
+  }
+  .app__title {
+    margin-top: 6px;
+    font-size: 1.6rem;
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .app__text {
+    margin-top: 12px;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .phone {
+    position: relative;
+    margin: 22px auto 0;
+    width: 168px;
+    padding: 10px;
+    border-radius: 28px;
+    background: linear-gradient(160deg, #26324d, #0b1226);
+    box-shadow:
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.18),
+      0 24px 40px -18px rgba(0, 0, 0, 0.7);
+    transform: rotate(-4deg);
+    transition: transform 0.6s var(--ease);
+  }
+  .app:hover .phone {
+    transform: rotate(0deg) translateY(-4px);
+  }
+  .phone__notch {
+    width: 48px;
+    height: 5px;
+    margin: 2px auto 8px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+  .phone__card {
+    border-radius: 18px;
+    background: #fff;
+    color: var(--navy-900);
+    padding: 12px 12px 14px;
+  }
+  .phone__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.6875rem;
+    font-weight: 800;
+  }
+  .phone__live {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--coral-600);
+    font-size: 0.625rem;
+  }
+  .phone__live i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: blink 1.6s ease-in-out infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0.25;
+    }
+  }
+  .phone__qr {
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 6px;
+  }
+  .phone__row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: var(--ink-500);
+  }
+  .phone__row b {
+    color: var(--navy-900);
+    white-space: nowrap;
+  }
+  .phone__bar {
+    margin-top: 6px;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--blue-100);
+    overflow: hidden;
+  }
+  .phone__bar i {
+    display: block;
+    height: 100%;
+    width: var(--used);
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--blue-500), var(--blue-700));
+    transition: width 1s var(--ease);
+  }
+  .app__more {
+    margin-top: auto;
+    padding-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .app__more:hover {
+    color: var(--gold-400);
+    border-color: var(--gold-400);
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import { footerLinks, directions, contact } from "../data/site";
+import { t, type Lang } from "../i18n";
+import { withBase } from "../lib/paths";
+
+/** 2020 footer, kept in spirit — and honest: this university is a portfolio piece. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <Logo lang={lang} tone="light" />
+      <ul class="footer__links">
+        {
+          footerLinks.map((l, i) => (
+            <li>
+              <button type="button" data-demo class:list={{ strong: i === 1 }}>
+                {t(l, lang)}
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="footer__body">
+      <address class="footer__addr">
+        <p>{t(directions.address, lang)}</p>
+        <p>
+          <span>{lang === "ko" ? "대표전화" : "Tel"} <b class="tabular">{contact.phone}</b></span>
+          <span>FAX <b class="tabular">{contact.fax}</b></span>
+          <span>{contact.email}</span>
+        </p>
+        <p class="footer__copy">© 2026 HANGUK UNIVERSITY. ALL RIGHTS RESERVED.</p>
+      </address>
+
+      <div class="footer__note">
+        <p class="footer__note-title"><Icon name="sparkle" size={16} />{lang === "ko" ? "포트폴리오 리마스터" : "Portfolio remaster"}</p>
+        <p>
+          {
+            lang === "ko"
+              ? "한국대학교는 실제로 존재하지 않는 가상의 대학입니다. 2020년 유선건이 jQuery로 만든 메인페이지를 2026년에 Astro와 AI 생성 미디어(Higgsfield · ElevenLabs · Gemini)로 다시 지었습니다."
+              : "Hanguk University does not exist. Yu Seongeon built this homepage with jQuery in 2020 and rebuilt it in 2026 with Astro and AI-generated media (Higgsfield · ElevenLabs · Gemini)."
+          }
+        </p>
+        <a class="footer__legacy" href={withBase("legacy/index.html")}>
+          {lang === "ko" ? "2020년 원본 보기" : "See the 2020 original"}
+          <Icon name="arrow-up-right" size={16} />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--navy-950);
+    color: rgba(255, 255, 255, 0.72);
+    padding: 56px 0 40px;
+    font-size: 0.875rem;
+  }
+  .footer__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+  }
+  .footer__links li + li::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 11px;
+    margin: 0 14px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+  .footer__links button {
+    color: rgba(255, 255, 255, 0.78);
+    transition: color 0.2s;
+  }
+  .footer__links button:hover {
+    color: #fff;
+  }
+  .footer__links .strong {
+    color: var(--gold-400);
+    font-weight: 700;
+  }
+  .footer__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    gap: 32px;
+    padding-top: 28px;
+  }
+  .footer__addr {
+    font-style: normal;
+    display: grid;
+    gap: 6px;
+    line-height: 1.7;
+  }
+  .footer__addr p:nth-child(2) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+  }
+  .footer__addr b {
+    color: #fff;
+    font-weight: 600;
+  }
+  .footer__copy {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.58);
+  }
+  .footer__note {
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    line-height: 1.65;
+    font-size: 0.8125rem;
+  }
+  .footer__note-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    color: var(--gold-400);
+    font-weight: 800;
+    font-size: 0.875rem;
+  }
+  .footer__legacy {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    color: #fff;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
+  .footer__legacy:hover {
+    color: var(--gold-400);
+    border-color: var(--gold-400);
+  }
+  @media (max-width: 860px) {
+    .footer__body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

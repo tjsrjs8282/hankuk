@@ -1,0 +1,79 @@
+---
+import { getImage } from "astro:assets";
+import Icon from "./Icon.astro";
+import poster from "../assets/photos/reel-poster.jpg";
+import { ui, t, type Lang } from "../i18n";
+import { withBase } from "../lib/paths";
+
+/** The campus film. The <video> only gets its source when the dialog opens. */
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const posterImg = await getImage({ src: poster, width: 1280, format: "webp" });
+---
+
+<dialog class="film-dialog" data-film aria-labelledby="film-title">
+  <div class="film-dialog__in">
+    <div class="film-dialog__bar">
+      <p id="film-title" class="film-dialog__title">
+        <span class="serif">Campus Film</span>
+        {lang === "ko" ? "30초로 보는 한국대학교" : "Hanguk in 30 seconds"}
+      </p>
+      <button type="button" class="icon-btn film-dialog__close" data-close aria-label={t(ui.close, lang)}>
+        <Icon name="close" />
+      </button>
+    </div>
+    <video class="film-dialog__video" controls playsinline preload="none" data-poster={posterImg.src} data-src={withBase("media/reel.mp4")}>
+      <p>{lang === "ko" ? "이 브라우저는 영상을 재생할 수 없습니다." : "Your browser can't play this video."}</p>
+    </video>
+    <p class="film-dialog__credit">
+      {lang === "ko" ? "영상 Higgsfield (Kling 3.0) · 음악 ElevenLabs Music · 편집 FFmpeg — 모든 장면은 AI로 생성된 가상의 캠퍼스입니다." : "Video: Higgsfield (Kling 3.0) · Music: ElevenLabs · Edit: FFmpeg — every scene is an AI-generated, fictional campus."}
+    </p>
+  </div>
+</dialog>
+
+<style>
+  .film-dialog {
+    width: min(1100px, 94vw);
+    margin: auto;
+  }
+  .film-dialog__in {
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    background: var(--navy-950);
+    color: #fff;
+    box-shadow: var(--shadow-3);
+  }
+  .film-dialog__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px 10px 22px;
+  }
+  .film-dialog__title {
+    font-weight: 700;
+  }
+  .film-dialog__title .serif {
+    font-style: italic;
+    color: var(--gold-400);
+    margin-right: 8px;
+    font-size: 1.1rem;
+  }
+  .film-dialog__close {
+    color: #fff;
+  }
+  .film-dialog__close:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .film-dialog__video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .film-dialog__credit {
+    padding: 12px 22px 16px;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+</style>
